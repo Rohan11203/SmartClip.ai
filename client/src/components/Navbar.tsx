@@ -42,9 +42,9 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="relative top-5">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8  border rounded-4xl border-gray-200 dark:border-gray-800">
-          <div className="flex justify-between h-16">
+      <nav className="fixed top-0 left-0 w-full z-50">
+        <div className="max-w-4xl mx-auto px-4 my-6 sm:px-6 lg:px-8  border rounded-4xl border-gray-200 dark:border-gray-800 dark:bg-black bg-white">
+          <div className="flex justify-between  h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
                 <span className="text-2xl font-bold">
