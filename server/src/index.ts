@@ -4,9 +4,11 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 
 import cors from "cors";
-import {UserRouter} from "./routes/index";
+import {UserRouter} from "./routes/userRouter";
 import mongoose from "mongoose";
 import { Userauth } from "./auth/index";
+import { ClipRouter } from "./routes/clipRoutes";
+import path from "path";
 
 
 const app = express();
@@ -20,12 +22,16 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-app.use("/api/v1/", UserRouter);
+app.use("/api/v1/users", UserRouter);
+app.use("/api/v1/videos", ClipRouter);
 
 const MongoUrl1 = process.env.MongoUrl!
 
 async function Main() {
 
+  console.log(path.join(__dirname))
+  const uploadsDir = path.join(__dirname, "../../uploads");
+  console.log("UploadDIr", uploadsDir)
   await  mongoose.connect(MongoUrl1);
   console.log('Connected to MongoDB');
 
