@@ -41,7 +41,12 @@ export async function ClipVideo(req: Request, res: any) {
     await clipWithFfmpeg(downloaded, startTime, `${durationSec}`, final);
     
     console.log(`Final clip created: ${final}`);
-    res.download(final, "clip.mp4");
+    // res.download(final, "clip.mp4");
+
+    res.download(final, "clip.mp4", async () => {
+      await unlinkAsync(final).catch(() => {});
+      await unlinkAsync(downloaded).catch(() => {});
+    });
   } catch (err) {
     console.error("ClipVideo error:", err);
     res.status(500).json({ 
