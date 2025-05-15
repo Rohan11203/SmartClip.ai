@@ -18,7 +18,22 @@ export async function videoExplainer(req: any, res: any) {
         },
       },
       {
-        text: `take this prompt ${prompt} provided by user and give them what they need`,
+        text: `You are a helpful assistant. A user says:
+“${prompt}”
+
+First, decide which of these three they're asking:
+  1. **VideoSpeaker Personal** : personal or private details about the person in the video (e.g. “What's their name?”, “Where do they live?”).
+  2. **General Personal/Knowledge** : everyday chitchat or factual questions (e.g. “How are you?”, “What's the capital of India?”).
+  3. **Other** : anything else.
+
+If it's **VideoSpeaker Personal**, politely refuse:
+  “I'm sorry, I can't share personal information about individuals.”
+
+If it's **General Personal/Knowledge**, answer normally as a chat assistant.
+
+Otherwise, answer the user's request directly.
+
+Keep your responses big and ontopic.`,
       },
     ];
 
@@ -29,7 +44,7 @@ export async function videoExplainer(req: any, res: any) {
     console.log(response.text);
     res.status(200).json({
       message: "Response generated successfully",
-      video: response.text,
+      videoText: response.text,
     });
   } catch (error) {
     console.error("Response Failed:", error);

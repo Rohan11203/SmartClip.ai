@@ -1,54 +1,102 @@
+import Ai from "@/components/Ai";
+import { Footer } from "@/components/Footer";
+import HeroSection from "@/components/HeroSection";
 import Navbar from "@/components/Navbar";
+import Steps from "@/components/Steps";
+import Testimonials from "@/components/Testimonials";
+import UseCases from "@/components/UseCases";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const LandingPage = () => {
+  const theme = localStorage.getItem("theme");
+
   return (
-    <div className="relative text-black dark:text-white min-h-screen flex flex-col">
+    <div className="relative h-screen w-full overflow-x-hidden">
+      {/* LEFT SIDE SHAPE */}
+      <div className="absolute top-0 left-0 h-[100vh] md:h-[150vh] lg:h-[180vh] w-[12vw] z-10 dark:hidden">
+        <svg
+          width="100%"
+          height="100%"
+          viewBox="0 0 200 800"
+          preserveAspectRatio="none"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-0 left-0 h-full w-full"
+        >
+          <path
+            d="M0 0 C0 0, 150 100, 180 400 C200 650, 120 780, 0 800 L0 0 Z"
+            fill="url(#skin_tone_left)"
+          />
+          <defs>
+            <linearGradient
+              id="skin_tone_left"
+              x1="100"
+              y1="0"
+              x2="100"
+              y2="800"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0" stopColor="rgba(255,224,189,0)" />
+              <stop offset="0.5" stopColor="rgba(255,224,189,0.7)" />
+              <stop offset="1" stopColor="rgba(255,224,189,0)" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      {/* RIGHT SIDE SHAPE */}
+      <div className="absolute top-0 right-0 h-[100vh] md:h-[150vh] lg:h-[180vh] w-[12vw] z-10 dark:hidden">
+        <svg
+          width="100%"
+          height="100%"
+          viewBox="0 0 200 800"
+          preserveAspectRatio="none"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-0 right-0 h-full w-full"
+        >
+          <path
+            d="M200 0 C200 0, 80 100, 40 400 C20 600, 100 780, 200 800 L200 0 Z"
+            fill="url(#skin_tone_right)"
+          />
+          <defs>
+            <linearGradient
+              id="skin_tone_right"
+              x1="100"
+              y1="0"
+              x2="100"
+              y2="800"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0" stopColor="rgba(255,224,189,0)" />
+              <stop offset="0.5" stopColor="rgba(255,224,189,0.7)" />
+              <stop offset="1" stopColor="rgba(255,224,189,0)" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
       <div
-        className="
-    absolute inset-0 -z-10 h-full w-full
-    bg-white dark:bg-black
-    bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)]
-    dark:bg-[linear-gradient(to_right,#2a2a2a_1px,transparent_1px),linear-gradient(to_bottom,#2a2a2a_1px,transparent_1px)]
-    bg-[size:6rem_4rem] dark:bg-[size:6rem_4rem]
-  "
+        className={`
+        absolute top-0 z-[-1] h-screen w-screen rotate-180 transform
+    bg-white
+    bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(255,224,189,0.5)_100%)]
+        dark:bg-neutral-900
+        dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]
+
+        `}
       ></div>
 
       <Navbar />
-      <main className="flex-grow flex flex-col items-center justify-center px-4  text-center ">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-          Transform Videos with{" "}
-          <span className="text-blue-500 dark:text-blue-400">smartClip</span>
-        </h1>
+      <HeroSection />
+      <Steps />
+      <UseCases />
+      <Testimonials />
+      <Ai />
 
-        <p className="text-lg md:text-xl max-w-2xl mb-8 text-gray-700 dark:text-gray-300">
-          Paste a URL, clip what matters, download, and get AI-powered
-          explanations about your video clips. Simplify your video content
-          experience.
-        </p>
-
-        <Link
-          to={"/clip"}
-          className="px-8 py-4 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-bold rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1"
-        >
-          Coming Soon
-        </Link>
-
-        <p className="mt-6 text-gray-600 dark:text-gray-400 max-w-lg">
-          smartClip is revolutionizing how you interact with video content. Our
-          platform allows you to extract the most valuable parts of any video,
-          save them for later, and understand them better with GPT-powered
-          insights.
-        </p>
-      </main>
       {/* Footer */}
-      <footer className="py-6 border-t dark:bg-black bg-white border-gray-200 dark:border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-gray-500 dark:text-gray-400">
-            &copy; {new Date().getFullYear()} smartClip. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

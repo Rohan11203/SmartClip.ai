@@ -3,10 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import LandingPage from "./pages/LandingPage";
 import { BrowserRouter } from 'react-router-dom'
-import ClipForm from "./components/ClipForm";
-import Navbar from "./components/Navbar";
-import MainPage from "./components/mainPage";
-import { useEffect } from "react";
+import MainPage from "@/components/MainPage";
 
 function App() {
     

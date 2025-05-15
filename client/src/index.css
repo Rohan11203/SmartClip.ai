@@ -118,3 +118,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* src/index.css (or App.css—wherever you @import Tailwind) */
+@import "tailwindcss";
+
+/* ← your CSS-first “config” */
+@theme {
+  /* 1) Define the --animate-... variable exactly as "name duration timing-function infinite" */
+  --animate-infinite-scroll: infinite-scroll 60s linear infinite;
+
+  /* 2) Declare the @keyframes that you referenced above */
+  @keyframes infinite-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-100%); }
+  }
+}
