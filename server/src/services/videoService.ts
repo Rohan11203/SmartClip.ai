@@ -3,9 +3,7 @@ import { spawn } from "child_process";
 import fs from "fs";
 import path from "path";
 
-// const YT_DLP_PATH = "C:\\Users\\rohan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\yt-dlp.yt-dlp_Microsoft.Winget.Source_8wekyb3d8bbwe\\yt-dlp.exe";
 
-// const FFMPEG_PATH = "C:\\Users\\rohan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\yt-dlp.yt-dlp_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg.exe"
 export async function downloadSection(
   url: string,
   start: string,

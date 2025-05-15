@@ -19,6 +19,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "@google/genai": "^0.14.0",
     "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.18",
     "@types/express": "^5.0.1",
@@ -28,6 +29,9 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.14.2"
+    "langchain": "^0.3.24",
+    "mongoose": "^8.14.2",
+    "nodejs-whisper": "^0.2.6",
+    "openai": "^4.98.0"
   }
 }

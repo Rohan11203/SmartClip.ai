@@ -18,6 +18,7 @@
     "clsx": "^2.1.1",
     "lucide-react": "^0.510.0",
     "motion": "^12.11.0",
+    "openai": "^4.98.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-spinners": "^0.17.0",
