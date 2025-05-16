@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
+import ProcessingModal from "./ui/ProcessingModal";
 
 const ClipForm = () => {
   const [data, setData] = useState({
@@ -8,6 +9,7 @@ const ClipForm = () => {
     startTime: "",
     endTime: "",
   });
+  const [isProcessing, setIsProcessing] = useState(false);
 
 
   const theme  = localStorage.getItem("theme")
@@ -16,6 +18,7 @@ const ClipForm = () => {
   const [loading,setLoading] = useState(false);
 
   async function handleSubmit() {
+    setIsProcessing(true)
     setLoading(true)
     try {
       setError(""); // Clear previous errors
@@ -44,8 +47,10 @@ const ClipForm = () => {
     } catch (err: any) {
       console.error("Download failed", err);
       setError(err?.message || "Something went wrong");
+      setIsProcessing(false)
     }finally {
       setLoading(false)
+      
     }
   }
 
@@ -56,11 +61,15 @@ const ClipForm = () => {
 
   return (
     <div className="flex justify-center">
+      <ProcessingModal
+      isOpen={isProcessing}
+      onComplete={() => {error ? setIsProcessing(false) : setIsProcessing(false)}}
+      />
       <div
         className="
       bg-white dark:bg-cg-dark dark:text-cg-text
       flex flex-col justify-center
-      h-[280px] w-[384px]
+      h-[320px] w-[384px]
       p-6 space-y-4
       rounded-2xl shadow-lg
       border border-gray-200 dark:border-gray-700 dark:bg-[#121212]
@@ -129,7 +138,7 @@ const ClipForm = () => {
             ): "Download Clip"
           }
         </button>
-        {error && <p className="text-red-600 text-sm">{error}</p>}
+        {error && <p className=" text-center text-red-600 text-sm">{error}</p>}
       </div>
     </div>
   );

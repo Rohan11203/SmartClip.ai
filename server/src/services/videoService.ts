@@ -16,7 +16,7 @@ export async function downloadSection(
     const template = `${outputBase}.%(ext)s`;
     const args = [
       url,
-      "-f", "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best",
+      "-f", "bestvideo[ext=mp4][height<=720]+bestaudio[ext=m4a]/best",
       "--download-sections", sectionArg,
       "--merge-output-format", "mp4",
       // force a consistent recode if merge fails

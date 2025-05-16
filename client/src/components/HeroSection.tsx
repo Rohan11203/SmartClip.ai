@@ -1,6 +1,8 @@
 import Features from "./ui/Features";
 import { motion } from "framer-motion";
 const HeroSection = () => {
+
+  
   return (
     <motion.div
     id="top"
@@ -32,8 +34,8 @@ const HeroSection = () => {
               className=" outline-none dark:text-orange-100 shadow-md h-12 w-full sm:w-86 p-4 bg-white dark:bg-[#121212]  rounded-4xl"
             />
           </div>
-            <button className=" bg-orange-500 text-white h-12 sm:w-26 w-full rounded-4xl cursor-pointer hover:bg-orange-400 transition duration-300">
-              Join Beta
+            <button className=" bg-orange-500  text-white h-12 sm:w-30 w-full rounded-4xl cursor-pointer hover:bg-orange-400 transition duration-300">
+              Send Message
             </button>
         </div>
 

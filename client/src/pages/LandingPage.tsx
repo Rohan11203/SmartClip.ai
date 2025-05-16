@@ -5,9 +5,11 @@ import Navbar from "@/components/Navbar";
 import Steps from "@/components/Steps";
 import Testimonials from "@/components/Testimonials";
 import UseCases from "@/components/UseCases";
+import { useState } from "react";
 
 const LandingPage = () => {
   const theme = localStorage.getItem("theme");
+  
 
   return (
     <div className="relative h-screen w-full overflow-x-hidden">

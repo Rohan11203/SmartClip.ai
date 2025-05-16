@@ -124,10 +124,10 @@ const MainPage = () => {
         <div className="bg-white dark:bg-[#121212] rounded-lg shadow p-4">
           <h2 className="text-lg font-semibold mb-4">Prompt</h2>
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleExplainSubmit();
-            }}
+            // onSubmit={(e) => {
+            //   e.preventDefault();
+            //   handleExplainSubmit();
+            // }}
           >
             <div className="mb-4">
               <textarea
@@ -140,7 +140,8 @@ const MainPage = () => {
               />
             </div>
             <button
-              disabled={loading}
+              // disabled={loading}
+              disabled={true}
               type="submit"
               className="w-full bg-black hover:bg-gray-900 dark:bg-white dark:hover:bg-gray-100 cursor-pointer text-white dark:text-black font-medium py-2 px-4 rounded-md  "
             >
@@ -150,7 +151,7 @@ const MainPage = () => {
                   color={`${theme == "dark" ? "black" : "white"}`}
                 />
               ) : (
-                "Explain"
+                "Explain ( Coming Soon )"
               )}
             </button>
           </form>
@@ -160,6 +161,7 @@ const MainPage = () => {
       {/* Right Side - Explanation Display */}
       <div className="w-full md:w-2/3 xl:w-3/4 bg-white dark:bg-[#202123] overflow-y-auto">
         <div className="h-full flex flex-col">
+          
           {/* Explanation header */}
           <div className="border-b border-gray-200 dark:border-gray-800 p-4 flex justify-between">
             <h2 className="text-xl font-semibold">Video Clip Explanation</h2>

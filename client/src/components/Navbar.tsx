@@ -1,9 +1,28 @@
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
+import AuthModal from "./AuthModal";
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [open,setOpen] = useState(false)
+
+  function handleSubmit(mode:any, { email, password }: any) {
+    if (mode === 'signup') {
+      // call your signup API
+      console.log('sign up', { email, password });
+    } else {
+      // call your signin API
+      console.log('sign in', { email, password });
+    }
+    setOpen(false);
+  }
+
+  function handleGoogle(mode:any) {
+    // Google OAuth for signup vs signin
+    console.log('Google', mode);
+  }
+
 
   // Check for system preference on component mount
   useEffect(() => {
@@ -52,10 +71,14 @@ const Navbar = () => {
             <HashLink smooth to="#about" className="cursor-pointer hover:text-amber-500 transition duration-300">Projects</HashLink>
             <HashLink smooth to="#contact" className="cursor-pointer hover:text-amber-500 transition duration-300">Contact</HashLink>
           </div>
-          <div className="flex items-center">
-            <div className="sm:block hidden bg-orange-500 cursor-pointer hover:bg-orange-400 transition duration-300 text-white  px-4 py-2 rounded-4xl font-semibold">
+          <div
+          
+          className="flex items-center">
+            <button 
+            onClick={() => setOpen(true)}
+            className="sm:block hidden bg-orange-500 cursor-pointer hover:bg-orange-400 transition duration-300 text-white  px-4 py-2 rounded-4xl font-semibold">
               Join Beta
-            </div>
+            </button>
             <button
               onClick={toggleDarkMode}
               className="ml-4 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -119,13 +142,21 @@ const Navbar = () => {
             <a href="#projects" className="block text-gray-700 dark:text-gray-200 hover:underline">Projects</a>
             <a href="#contact" className="block text-gray-700 dark:text-gray-200 hover:underline">Contact</a>
             <div className="mt-4">
-              <a href="#join" className="block text-center bg-orange-500 text-white px-4 py-2 rounded-4xl font-semibold">
+              <button 
+              onClick={() => setOpen(true)}
+              className="block text-center bg-orange-500 text-white px-4 py-2 w-full rounded-4xl font-semibold">
                 Join Beta
-              </a>
+              </button>
             </div>
           </div>
         )}
       </nav>
+       <AuthModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onGoogle={handleGoogle}
+        onSubmit={handleSubmit}
+      />
 
       <Outlet />
     </>
