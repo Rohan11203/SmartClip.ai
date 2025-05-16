@@ -1,8 +1,12 @@
 import Features from "./ui/Features";
-
+import { motion } from "framer-motion";
 const HeroSection = () => {
   return (
-    <div className="relative max-w-5xl mx-auto px-6 text-center">
+    <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6,delay: 0.2 }}
+    className="relative max-w-5xl mx-auto px-6 text-center">
       <div className="flex flex-col gap-6">
         <div className="mt-30 ">
           <span className="bg-slate-100 dark:text-black rounded-3xl spectral-light p-2 px-4 text-sm font-semibold">
@@ -34,7 +38,7 @@ const HeroSection = () => {
 
         <Features />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

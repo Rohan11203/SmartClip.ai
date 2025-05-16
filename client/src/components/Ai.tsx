@@ -1,6 +1,12 @@
+import { motion } from "framer-motion";
 const Ai = () => {
   return (
-    <section className="bg-white dark:bg-[#050505] text-orange-900 dark:text-orange-100">
+    <motion.section
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.2 }}
+    transition={{ duration: 0.6, ease: "easeOut" }}
+    className="bg-white dark:bg-[#050505] text-orange-900 dark:text-orange-100">
       <div className="max-w-7xl  sm:mx-auto mx-2 px-4 sm:pt-30 pt-20 sm:pb-40 pb-20 p-12 rounded-4xl   bg-gradient-to-b from-orange-100 to-white dark:from-[#121212] dark:to-[#050505] ">
         <h1 className="text-center spectral-bold  sm:text-5xl md:text-6xl text-2xl text-slate-700 dark:text-slate-200">
           <span>Turn Your Content Into an</span>
@@ -22,7 +28,7 @@ const Ai = () => {
           </button>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
