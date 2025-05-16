@@ -1,8 +1,12 @@
 import StepCard from "./ui/StepCard";
 import { motion } from "framer-motion";
+import Image from "@/assets/smartClipImage2.jpg";
+import Image2 from "@/assets/ytSearch.webp";
+
 const Steps = () => {
   return (
     <motion.div
+    id="about"
      initial={{ opacity: 0, y: 40 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.2 }}
@@ -17,9 +21,9 @@ const Steps = () => {
             </h1>
           </div>
           <div className="sm:flex grid justify-center  w-full gap-8">
-            <StepCard title={"Paste YouTube Link"} description={"Drop your link into SmartClip's input box."} step={"Step 1"} />
-            <StepCard title={"Set Time Range & Prompt"} description={"Drop your link into SmartClip's input box."} step={"Step 2"} />
-            <StepCard title={"Download and Explanation"} description={"Get your downloadable clip and an AI summary instantly."} step={"Step 3"}/>
+            <StepCard title={"Paste YouTube Link"} description={"Drop your link into SmartClip's input box."} step={"Step 1"} image={Image2}/>
+            <StepCard title={"Set Time Range & Prompt"} description={"Drop your link into SmartClip's input box."} step={"Step 2"} image={Image}/>
+            <StepCard title={"Download and Explanation"} description={"Get your downloadable clip and an AI summary instantly."} step={"Step 3"} image={Image}/>
           </div>
         </div>
       </div>

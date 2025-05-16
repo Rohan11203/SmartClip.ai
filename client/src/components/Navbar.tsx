@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-
+import { HashLink } from "react-router-hash-link";
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -43,14 +43,14 @@ const Navbar = () => {
     <>
       <nav className="fixed  top-2 left-0 right-0 z-50  max-w-5xl mx-auto px-4">
         <div className="bg-white dark:bg-[#121212] spectral-bold flex items-center justify-between p-2 py-3 m-4 rounded-4xl px-6 shadow-lg">
-          <div className="text-xl font-semibold dark:text-white">
+          <HashLink smooth to="#top" className="text-xl font-semibold dark:text-white">
             Smart<span className="text-orange-500">Clip</span>
-          </div>
+          </HashLink>
           <div className="hidden md:flex gap-6 dark:text-white">
-            <div className="cursor-pointer hover:text-amber-500 transition duration-300">About</div>
-            <div className="cursor-pointer hover:text-amber-500 transition duration-300">Value</div>
-            <div className="cursor-pointer hover:text-amber-500 transition duration-300">Projects</div>
-            <div className="cursor-pointer hover:text-amber-500 transition duration-300">Contact</div>
+            <HashLink smooth to="#about" className="cursor-pointer hover:text-amber-500 transition duration-300">About</HashLink>
+            <HashLink smooth to="#value" className="cursor-pointer hover:text-amber-500 transition duration-300">Value</HashLink>
+            <HashLink smooth to="#about" className="cursor-pointer hover:text-amber-500 transition duration-300">Projects</HashLink>
+            <HashLink smooth to="#contact" className="cursor-pointer hover:text-amber-500 transition duration-300">Contact</HashLink>
           </div>
           <div className="flex items-center">
             <div className="sm:block hidden bg-orange-500 cursor-pointer hover:bg-orange-400 transition duration-300 text-white  px-4 py-2 rounded-4xl font-semibold">

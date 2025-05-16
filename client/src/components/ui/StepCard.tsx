@@ -1,11 +1,10 @@
-import Image from "@/assets/smartClipImage2.jpg";
 
-const StepCard = ({title,description,step}:any) => {
+const StepCard = ({title,description,step,image}:any) => {
   return (
       <div className="border  hover:shadow-xl border-slate-200 dark:border-slate-700 dark:shadow-neutral-900 shadow-md rounded-2xl h-full w-[350px] ">
         <div className=" rounded-2xl m-4">
           <div className="bg-blue-50 p-4 rounded-2xl">
-            <img src={Image} className="" />
+            <img src={image} className="" />
           </div>
         </div>
         <div className="m-6 ">
