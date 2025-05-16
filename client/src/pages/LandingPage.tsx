@@ -5,8 +5,7 @@ import Navbar from "@/components/Navbar";
 import Steps from "@/components/Steps";
 import Testimonials from "@/components/Testimonials";
 import UseCases from "@/components/UseCases";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+
 
 const LandingPage = () => {
   const theme = localStorage.getItem("theme");
@@ -14,7 +13,7 @@ const LandingPage = () => {
   return (
     <div className="relative h-screen w-full overflow-x-hidden">
       {/* LEFT SIDE SHAPE */}
-      <div className="absolute top-0 left-0 h-[100vh] md:h-[150vh] lg:h-[180vh] w-[12vw] z-10 dark:hidden">
+      <div className="absolute  top-0 left-0 h-[100vh] md:h-[150vh] lg:h-[180vh] w-[12vw] z-10 dark:hidden">
         <svg
           width="100%"
           height="100%"
@@ -46,7 +45,7 @@ const LandingPage = () => {
       </div>
 
       {/* RIGHT SIDE SHAPE */}
-      <div className="absolute top-0 right-0 h-[100vh] md:h-[150vh] lg:h-[180vh] w-[12vw] z-10 dark:hidden">
+      <div className="absolute  top-0 right-0 h-[100vh] md:h-[150vh] lg:h-[180vh] w-[12vw] z-10 dark:hidden">
         <svg
           width="100%"
           height="100%"

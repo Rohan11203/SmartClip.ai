@@ -41,19 +41,19 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-5 left-0 right-0 z-50  max-w-5xl mx-auto px-4 ">
+      <nav className="fixed  top-2 left-0 right-0 z-50  max-w-5xl mx-auto px-4">
         <div className="bg-white dark:bg-[#121212] spectral-bold flex items-center justify-between p-2 py-3 m-4 rounded-4xl px-6 shadow-lg">
           <div className="text-xl font-semibold dark:text-white">
             Smart<span className="text-orange-500">Clip</span>
           </div>
-          <div className="flex gap-6 dark:text-white">
-            <div>About</div>
+          <div className="hidden md:flex gap-6 dark:text-white">
+            <div className="">About</div>
             <div>Value</div>
             <div>Projects</div>
             <div>Contact</div>
           </div>
           <div className="flex items-center">
-            <div className=" bg-orange-500 text-white  px-4 py-2 rounded-4xl font-semibold">
+            <div className="sm:block hidden bg-orange-500 text-white  px-4 py-2 rounded-4xl font-semibold">
               Join Beta
             </div>
             <button
@@ -92,8 +92,39 @@ const Navbar = () => {
                 </svg>
               )}
             </button>
+              <button
+              onClick={toggleMobileMenu}
+              className="md:hidden p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
+              {/* Hamburger / Close icon */}
+              {mobileMenuOpen ? (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6  dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 cursor-pointer dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
           </div>
         </div>
+           {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="mt-2 bg-white dark:bg-[#121212] rounded-2xl shadow-lg p-4 space-y-4 max-w-5xl mx-auto">
+            <a href="#about" className="block text-gray-700 dark:text-gray-200 hover:underline">About</a>
+            <a href="#value" className="block text-gray-700 dark:text-gray-200 hover:underline">Value</a>
+            <a href="#projects" className="block text-gray-700 dark:text-gray-200 hover:underline">Projects</a>
+            <a href="#contact" className="block text-gray-700 dark:text-gray-200 hover:underline">Contact</a>
+            <div className="mt-4">
+              <a href="#join" className="block text-center bg-orange-500 text-white px-4 py-2 rounded-4xl font-semibold">
+                Join Beta
+              </a>
+            </div>
+          </div>
+        )}
       </nav>
 
       <Outlet />
