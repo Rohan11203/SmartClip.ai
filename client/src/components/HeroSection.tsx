@@ -9,12 +9,12 @@ const HeroSection = () => {
             🤩 1000+ Successfully Downloads
           </span>
         </div>
-        <h1 className="mt-6 spectral-bold  dark:text-white sm:text-5xl md:text-6xl text-3xl text-slate-700">
+        <h1 className="mt-6 spectral-bold  dark:text-white sm:text-5xl md:text-6xl text-3xl  text-slate-700">
           Clip YouTube Videos. <br />
           <span className=" tracking-wider">Let AI Explain the Rest.</span>
         </h1>
 
-        <p className="spectral-medium text-xs px-4 sm:text-base">
+        <p className="spectral-medium text-xs px-4 sm:text-base dark:text-orane-100 dark:text-orange-100">
           SmartClip lets you extract clips from any YouTube video and get
           instant AI-generated explanations
           <br />— perfect for learning, sharing, or summarizing content.
@@ -24,10 +24,10 @@ const HeroSection = () => {
           <div>
             <input
               placeholder="Enter Your Email"
-              className="dark:shadow-slate-800 outline-none shadow-md h-12 w-full sm:w-86 p-4 bg-white dark:bg-[#121212]  rounded-4xl"
+              className=" outline-none dark:text-orange-100 shadow-md h-12 w-full sm:w-86 p-4 bg-white dark:bg-[#121212]  rounded-4xl"
             />
           </div>
-            <button className=" bg-orange-500 text-white h-12 sm:w-26 w-full rounded-4xl ">
+            <button className=" bg-orange-500 text-white h-12 sm:w-26 w-full rounded-4xl cursor-pointer hover:bg-orange-400 transition duration-300">
               Join Beta
             </button>
         </div>

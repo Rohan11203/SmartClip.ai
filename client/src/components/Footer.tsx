@@ -4,7 +4,7 @@ import { FaTwitter, FaGoogle, FaYoutube } from "react-icons/fa";
 export const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-300 py-12">
-      <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
         {/* Brand */}
         <div className="space-y-4">
           <h3 className="flex items-center text-white text-xl font-semibold">
@@ -12,13 +12,13 @@ export const Footer = () => {
             SmartClip
           </h3>
           <p className="text-sm">
-            AI-Powered Content Discovery & Monetization for Creators.
+            A web application that allows users to upload or link a video, clip a specific section
             <br />
-            Transform your content into interactive experiences.
+            get a GPT-generated explanation of that section, and download the clipped video.
           </p>
           <a
             href="#join-beta"
-            className="inline-block bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition"
+            className="inline-block bg-orange-600 hover:bg-amber-500  text-white font-medium py-2 px-4 rounded-lg transition  duration-300"
           >
             Join Beta 
           </a>

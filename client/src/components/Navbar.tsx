@@ -47,13 +47,13 @@ const Navbar = () => {
             Smart<span className="text-orange-500">Clip</span>
           </div>
           <div className="hidden md:flex gap-6 dark:text-white">
-            <div className="">About</div>
-            <div>Value</div>
-            <div>Projects</div>
-            <div>Contact</div>
+            <div className="cursor-pointer hover:text-amber-500 transition duration-300">About</div>
+            <div className="cursor-pointer hover:text-amber-500 transition duration-300">Value</div>
+            <div className="cursor-pointer hover:text-amber-500 transition duration-300">Projects</div>
+            <div className="cursor-pointer hover:text-amber-500 transition duration-300">Contact</div>
           </div>
           <div className="flex items-center">
-            <div className="sm:block hidden bg-orange-500 text-white  px-4 py-2 rounded-4xl font-semibold">
+            <div className="sm:block hidden bg-orange-500 cursor-pointer hover:bg-orange-400 transition duration-300 text-white  px-4 py-2 rounded-4xl font-semibold">
               Join Beta
             </div>
             <button

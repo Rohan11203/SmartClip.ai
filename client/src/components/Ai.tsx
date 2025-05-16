@@ -1,26 +1,28 @@
-import React from "react";
-
 const Ai = () => {
   return (
-    <div className="max-w-7xl mx-auto px-4 pt-28 mb-40 p-12 rounded-4xl bg-gradient-to-b from-orange-200 to-white">
-      <h1 className="text-center spectral-bold  text-6xl text-slate-700">
-        <span>Turn Your Content Into an</span>
-        <br />
-        <span>AI Assistant Today</span>
-      </h1>
-      <p className="text-center text-lg p-4">
-        No code. No prompt engineering. Just results.
-      </p>
-      <div className="text-center pt-4 spectral-medium">
-        <input
-          placeholder="Enter Your Email"
-          className="border-none outline-none shadow-md h-14 p-4 bg-white rounded-4xl mr-4 w-86"
-        />
-        <button className="border bg-orange-500 text-white h-14 w-26 rounded-4xl">
-          Join Beta
-        </button>
+    <section className="bg-white dark:bg-[#050505] text-orange-900 dark:text-orange-100">
+      <div className="max-w-7xl  sm:mx-auto mx-2 px-4 sm:pt-30 pt-20 sm:pb-40 pb-20 p-12 rounded-4xl   bg-gradient-to-b from-orange-100 to-white dark:from-[#121212] dark:to-[#050505] ">
+        <h1 className="text-center spectral-bold  sm:text-5xl md:text-6xl text-2xl text-slate-700 dark:text-slate-200">
+          <span>Turn Your Content Into an</span>
+          <br />
+          <span>AI Assistant Today</span>
+        </h1>
+        <p className="text-center sm:text-lg text-sm p-4">
+          No code. No prompt engineering. Just results.
+        </p>
+        <div className="sm:flex grid justify-center items-center gap-6 spectral-medium">
+          <div>
+            <input
+              placeholder="Enter Your Email"
+              className="dark:shadow-slate-800 outline-none shadow-sm h-12 w-full sm:w-86 p-4 bg-white dark:bg-[#121212]  rounded-4xl"
+            />
+          </div>
+          <button className=" bg-orange-500 cursor-pointer  hover:bg-amber-500 transition duration-300 text-white h-12 sm:w-26 w-full rounded-4xl ">
+            Join Beta
+          </button>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

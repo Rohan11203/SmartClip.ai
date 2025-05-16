@@ -1,14 +1,14 @@
 const Features = () => {
     const features = [
-      "Analytics",
-      "Image Q&A",
-      "AI-Powered Content Delivery",
-      "One-Click Campaign Reminders",
+      "Clip Selector",
+      "GPT Generated Natural Language Summary",
+      "Interactive Q&A Overlay",
+      "Direct Download of Clipped Video",
       
-      "Analytics",
-      "Image Q&A",
-      "AI-Powered Content Delivery",
-      "One-Click Campaign Reminders",
+      "Clip Selector",
+      "GPT Generated Natural Language Summary",
+      "Interactive Q&A Overlay",
+      "Direct Download of Clipped Video",
     ];
   
     return (
@@ -20,7 +20,7 @@ const Features = () => {
             {features.map((feature, idx) => (
               <li
                 key={idx}
-                className="text-slate-800 p-2 rounded-4xl bg-white whitespace-nowrap"
+                className="text-slate-800 dark:text-orange-100 p-2 rounded-4xl bg-white dark:bg-[#121212] whitespace-nowrap"
               >
                 {feature}
               </li>

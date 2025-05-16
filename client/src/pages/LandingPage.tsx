@@ -6,7 +6,6 @@ import Steps from "@/components/Steps";
 import Testimonials from "@/components/Testimonials";
 import UseCases from "@/components/UseCases";
 
-
 const LandingPage = () => {
   const theme = localStorage.getItem("theme");
 
@@ -81,8 +80,8 @@ const LandingPage = () => {
         absolute top-0 z-[-1] h-screen w-screen rotate-180 transform
     bg-white
     bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(255,224,189,0.5)_100%)]
-        dark:bg-neutral-900
-        dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]
+        dark:bg-[#000000]
+        dark:bg-[radial-gradient(#ffffff33_1px,#000000_1px)] dark:bg-[size:20px_20px]
 
         `}
       ></div>
