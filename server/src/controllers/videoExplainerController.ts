@@ -1,21 +1,28 @@
 import { GoogleGenAI } from "@google/genai";
-import * as fs from "node:fs";
-import path from "path";
+import { AssemblyAI } from "assemblyai";
 export async function videoExplainer(req: any, res: any) {
   const { prompt } = req.body;
+  let transcriptText;
   try {
-    const filePath = path.resolve(__dirname, "../../uploads/clip1.mp4");
     const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY });
-    const base64VideoFile = fs.readFileSync(filePath, {
-      encoding: "base64",
+
+    const client = new AssemblyAI({
+      apiKey: process.env.ASSEMBLYAI_API_KEY!,
     });
+
+    const audioFile =
+      "https://res.cloudinary.com/dhaqlhoe7/video/upload/v1747459985/qetljigcnvxda12n6ijf.mp4";
+
+    const params = {
+      audio: audioFile,
+    };
+
+      const transcript = await client.transcripts.transcribe(params);
+      transcriptText = transcript.text
 
     const contents = [
       {
-        inlineData: {
-          mimeType: "video/mp4",
-          data: base64VideoFile,
-        },
+        text: `Here's a transcript of a video:\n\n"${transcriptText}"`,
       },
       {
         text: `You are a helpful assistant. A user says:
