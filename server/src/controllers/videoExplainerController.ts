@@ -3,32 +3,36 @@ import { AssemblyAI } from "assemblyai";
 import { VideoModel } from "../DB";
 export async function videoExplainer(req: any, res: any) {
   const { prompt, videoId } = req.body;
+
   let transcriptText;
   try {
+    if (videoId) {
+      const videoUrlResponse = await VideoModel.findById(videoId).select("url");
+      console.log("Video Url", videoUrlResponse);
 
-    const videoUrlResponse = await VideoModel.findById(videoId).select("url")
-    console.log("Video Url",videoUrlResponse)
+      if (videoUrlResponse?.url) {
+        const videoUrl = videoUrlResponse?.url;
 
-    const videoUrl = videoUrlResponse?.url;
+      
+        const client = new AssemblyAI({
+          apiKey: process.env.ASSEMBLYAI_API_KEY!,
+        });
 
-    const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY });
-    const client = new AssemblyAI({
-      apiKey: process.env.ASSEMBLYAI_API_KEY!,
-    });
+        const videoFile = videoUrl;
+        const params = {
+          audio: videoFile!,
+        };
 
-    const videoFile = videoUrl
-
-    const params = {
-      audio: videoFile!,
-    };
-
-      const transcript = await client.transcripts.transcribe(params);
-      transcriptText = transcript.text
+        const transcript = await client.transcripts.transcribe(params);
+        transcriptText = transcript.text;
+      }
+    }
 
     const contents = [
-      {
-        text: `Here's a transcript of a video:\n\n"${transcriptText}"`,
-      },
+      ...(transcriptText
+        ? [{ text: `Here's a transcript of a video:\n\n"${transcriptText}"` }]
+        : []),
+
       {
         text: `You are a helpful assistant. A user says:
 “${prompt}”
@@ -49,6 +53,7 @@ Keep your responses big and ontopic.`,
       },
     ];
 
+    const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY });
     const response = await ai.models.generateContent({
       model: "gemini-2.0-flash",
       contents: contents,

@@ -7,9 +7,10 @@ const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [open, setOpen] = useState(false);
-  const [errors,   setErrors]   = useState<string[]>([]);
+  const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const isAuth = localStorage.getItem("isAuth");
 
   async function handleSubmit(mode: any, { username, email, password }: any) {
     if (mode === "signup") {
@@ -18,36 +19,38 @@ const Navbar = () => {
         console.log("Signup payload:", { username, email, password });
         const res = await onSignup({ username, email, password });
         console.log("Signup success:", res);
+        localStorage.setItem("isAuth", "true");
         setErrors([]);
-        navigate("/clip");
+        navigate("/chat");
       } catch (err: any) {
         if (err.response?.data?.errors) {
           setErrors(err.response.data.errors);
-        } else if(err.response?.data?.message) {
+        } else if (err.response?.data?.message) {
           setErrors([err.response.data.message]);
         } else {
           setErrors(["Something went wrong. Please try again."]);
         }
-      }finally {
+      } finally {
         setLoading(false);
       }
     } else {
       try {
         setLoading(true);
         console.log("Signup payload:", { email, password });
-        const res = await onSignin({  email, password });
+        const res = await onSignin({ email, password });
         console.log("SignIn success:", res);
+        localStorage.setItem("isAuth", "true");
         setErrors([]);
-        navigate("/clip");
+        navigate("/chat");
       } catch (err: any) {
         if (err.response?.data?.errors) {
           setErrors(err.response.data.errors);
-        } else if(err.response?.data?.message) {
+        } else if (err.response?.data?.message) {
           setErrors([err.response.data.message]);
         } else {
           setErrors(["Something went wrong. Please try again."]);
         }
-      }finally {
+      } finally {
         setLoading(false);
       }
     }
@@ -134,12 +137,21 @@ const Navbar = () => {
             </HashLink>
           </div>
           <div className="flex items-center">
-            <button
-              onClick={() => setOpen(true)}
-              className="sm:block hidden bg-orange-500 cursor-pointer hover:bg-orange-400 transition duration-300 text-white  px-4 py-2 rounded-4xl font-semibold"
-            >
-              Join Beta
-            </button>
+            {isAuth === "true" ? (
+              <button
+                onClick={() => navigate("/chat")}
+                className="block text-center bg-orange-500 cursor-pointer text-white px-4 py-2 w-full rounded-4xl font-semibold  hover:bg-orange-400 transition duration-300"
+              >
+                Chat Now
+              </button>
+            ) : (
+              <button
+                onClick={() => setOpen(true)}
+                className="block text-center cursor-pointer bg-orange-500 text-white px-4 py-2 w-full rounded-4xl font-semibold hover:bg-orange-400 transition duration-300"
+              >
+                Login Now
+              </button>
+            )}
             <button
               onClick={toggleDarkMode}
               className="ml-4 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -243,12 +255,21 @@ const Navbar = () => {
               Contact
             </a>
             <div className="mt-4">
-              <button
-                onClick={() => setOpen(true)}
-                className="block text-center bg-orange-500 text-white px-4 py-2 w-full rounded-4xl font-semibold"
-              >
-                Join Beta
-              </button>
+              {isAuth === "true" ? (
+                <button
+                  onClick={() => navigate("/chat")}
+                  className="block text-center bg-orange-500  text-white px-4 py-2 w-full rounded-4xl font-semibold"
+                >
+                  Chat
+                </button>
+              ) : (
+                <button
+                  onClick={() => setOpen(true)}
+                  className="block text-center bg-orange-500 text-white px-4 py-2 w-full rounded-4xl font-semibold"
+                >
+                  Login Now
+                </button>
+              )}
             </div>
           </div>
         )}

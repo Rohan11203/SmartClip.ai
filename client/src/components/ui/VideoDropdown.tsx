@@ -4,7 +4,7 @@ type VideoItem = {
   _id: string;
   title: string;
   thumbnailUrl: string;
-  duration: string;
+  duration: any;
 };
 
 type Props = {
@@ -58,7 +58,7 @@ export default function VideoDropdown({ videos, onSelect }: Props) {
               <img src={video.thumbnailUrl} alt="thumb" className="w-12 h-8 rounded object-cover" />
               <div className="flex flex-col">
                 <span className="text-sm font-medium">{video.title}</span>
-                <span className="text-xs text-gray-500">{video.duration}</span>
+                <span className="text-xs text-gray-500">{Math.floor(video.duration)} sec</span>
               </div>
             </div>
           ))}

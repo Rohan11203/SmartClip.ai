@@ -2,17 +2,20 @@ import MainPage from "@/components/MainPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import LandingPage from "./pages/LandingPage";
+import PrivateRoute from "./components/auth/PrivateRoute";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/">
-          <Route index element={<LandingPage />} />
-          <Route path="clip" element={<MainPage />} />
-          {/*<Route path="contact" element={<Contact />} />*/}
-          {/*<Route path="*" element={<NoPage />} />*/}
+        <Route path="/" element={<LandingPage />} />
+
+        <Route element={<PrivateRoute />}>
+          <Route path="/chat" element={<MainPage />} />
         </Route>
+
+        <Route path="*" element={<p>Page not found</p>} />
+        
       </Routes>
     </BrowserRouter>
   );

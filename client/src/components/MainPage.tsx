@@ -265,7 +265,7 @@ const MainPage = () => {
                   />
                 </svg>
                 <p className="text-xl">
-                  Enter a YouTube URL and submit a prompt to get started
+                  Select Your video and submit a prompt to get started
                 </p>
                 <p className="mt-2 text-center max-w-md">
                   smartClip will clip your video and provide an AI-powered
