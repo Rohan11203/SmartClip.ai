@@ -5,10 +5,21 @@ import Navbar from "@/components/Navbar";
 import Steps from "@/components/Steps";
 import Testimonials from "@/components/Testimonials";
 import UseCases from "@/components/UseCases";
+import { useEffect } from "react";
+import Lenis from "lenis"
 
 const LandingPage = () => {
   const theme = localStorage.getItem("theme");
 
+  useEffect(() => {
+    const lenis = new Lenis();
+    function raf(time:any){
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+
+    }
+    requestAnimationFrame(raf)
+  },[])
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden">
       {/* LEFT SIDE SHAPE */}
