@@ -12,10 +12,9 @@ export async function onSignup(data:AuthDataInterface) {
     } 
 
 export async function onSignin(data:AuthDataInterface) {
-    try {
-        await axios.post("http://localhost:3000/api/v1/users/signin", data, { withCredentials: true });
-    } catch (error) {
-        console.error("Error during signin:", error);
-        throw error;
-    }
+        return await axios.post("http://localhost:3000/api/v1/users/signin", data);
+}
+
+export async function getUserVideos() {
+    return await axios.get("http://localhost:3000/api/v1/users/userVideos")
 }

@@ -34,7 +34,7 @@ UserRouter.get("/userVideos", Userauth, async (req: any, res) => {
     });
 
     res.status(200).json({
-      message: enrichedVideos,
+      videos: enrichedVideos,
     });
   } catch (error) {
     console.error("Error fetching user videos:", error);

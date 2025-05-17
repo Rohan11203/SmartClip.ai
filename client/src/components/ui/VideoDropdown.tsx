@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 type VideoItem = {
-  id: string;
+  _id: string;
   title: string;
-  thumbnail: string;
+  thumbnailUrl: string;
   duration: string;
 };
 
@@ -18,7 +18,7 @@ export default function VideoDropdown({ videos, onSelect }: Props) {
 
   const handleSelect = (video: VideoItem) => {
     setSelected(video);
-    onSelect(video.id);
+    onSelect(video._id);
     setOpen(false);
   };
 
@@ -30,7 +30,7 @@ export default function VideoDropdown({ videos, onSelect }: Props) {
       >
         {selected ? (
           <div className="flex items-center gap-2">
-            <img src={selected.thumbnail} alt="thumb" className="w-10 h-6 rounded object-cover" />
+            <img src={selected.thumbnailUrl} alt="thumb" className="w-10 h-6 rounded object-cover" />
             <div className="text-sm">{selected.title}</div>
           </div>
         ) : (
@@ -51,11 +51,11 @@ export default function VideoDropdown({ videos, onSelect }: Props) {
         <div className="absolute z-10 mt-2 w-full bg-white dark:bg-black border rounded-md shadow-lg max-h-64 overflow-auto">
           {videos.map((video) => (
             <div
-              key={video.id}
+              key={video._id}
               onClick={() => handleSelect(video)}
               className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-slate-900 cursor-pointer"
             >
-              <img src={video.thumbnail} alt="thumb" className="w-12 h-8 rounded object-cover" />
+              <img src={video.thumbnailUrl} alt="thumb" className="w-12 h-8 rounded object-cover" />
               <div className="flex flex-col">
                 <span className="text-sm font-medium">{video.title}</span>
                 <span className="text-xs text-gray-500">{video.duration}</span>

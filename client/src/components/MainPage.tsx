@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import ClipForm from "./ClipForm";
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
-import Image from "@/assets/ytSearch.webp";
 import VideoDropdown from "./ui/VideoDropdown";
-
+import { getUserVideos } from "@/api";
+// import { getUserVideos } from "@/api";
 const MainPage = () => {
   const [prompt, setPrompt] = useState("");
   const [darkMode, setDarkMode] = useState(false);
@@ -12,23 +12,33 @@ const MainPage = () => {
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [videos,setVideos] = useState([])
+  const [videoId,setVideoId] = useState("")
 
   const theme = localStorage.getItem("theme");
 
-  const videos = [
-    {
-      id: "v1",
-      title: "Clip One",
-      thumbnail: "https://res.cloudinary.com/dhaqlhoe7/video/upload/so_3/qetljigcnvxda12n6ijf.jpg",
-      duration: "00:30",
-    },
-    {
-      id: "v2",
-      title: "Clip Two",
-      thumbnail: "https://res.cloudinary.com/dhaqlhoe7/video/upload/so_6/qetljigcnvxda12n6ijf.jpg",
-      duration: "01:12",
-    },
-  ];
+
+  // const videos = [
+  //   {
+  //     id: "v1",
+  //     title: "Clip One",
+  //     thumbnail: "https://res.cloudinary.com/dhaqlhoe7/video/upload/so_3/qetljigcnvxda12n6ijf.jpg",
+  //     duration: "00:30",
+  //   },
+  //   {
+  //     id: "v2",
+  //     title: "Clip Two",
+  //     thumbnail: "https://res.cloudinary.com/dhaqlhoe7/video/upload/so_6/qetljigcnvxda12n6ijf.jpg",
+  //     duration: "01:12",
+  //   },
+  // ];
+
+  async function handleUserVideos() {
+    const res = await getUserVideos();
+    setVideos(res.data.videos)
+    console.log(res.data.videos)
+  }
+
 
   const handleExplainSubmit = async () => {
     setLoading(true);
@@ -36,7 +46,7 @@ const MainPage = () => {
       setError("");
       const response = await axios.post(
         "http://localhost:3000/api/v1/video/explain",
-        { prompt }
+        { prompt,videoId }
       );
       if (response.data?.error) {
         throw new Error(response.data.error);
@@ -75,6 +85,8 @@ const MainPage = () => {
       setDarkMode(true);
       document.documentElement.classList.add("dark");
     }
+    handleUserVideos()
+
   }, []);
 
   // Toggle mobile sidebar
@@ -141,7 +153,7 @@ const MainPage = () => {
         {/* Drop Down*/}
 
         <VideoDropdown videos={videos}
-        onSelect={(id) => { console.log("Selected Id", id) }}
+        onSelect={(id) => { setVideoId(id) }}
         />
         <div className="bg-white dark:bg-[#121212] rounded-lg shadow p-4">
           <h2 className="text-lg font-semibold mb-4">Prompt</h2>

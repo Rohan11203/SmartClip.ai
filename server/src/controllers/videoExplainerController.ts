@@ -1,20 +1,25 @@
 import { GoogleGenAI } from "@google/genai";
 import { AssemblyAI } from "assemblyai";
+import { VideoModel } from "../DB";
 export async function videoExplainer(req: any, res: any) {
-  const { prompt } = req.body;
+  const { prompt, videoId } = req.body;
   let transcriptText;
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY });
 
+    const videoUrlResponse = await VideoModel.findById(videoId).select("url")
+    console.log("Video Url",videoUrlResponse)
+
+    const videoUrl = videoUrlResponse?.url;
+
+    const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY });
     const client = new AssemblyAI({
       apiKey: process.env.ASSEMBLYAI_API_KEY!,
     });
 
-    const audioFile =
-      "https://res.cloudinary.com/dhaqlhoe7/video/upload/v1747459985/qetljigcnvxda12n6ijf.mp4";
+    const videoFile = videoUrl
 
     const params = {
-      audio: audioFile,
+      audio: videoFile!,
     };
 
       const transcript = await client.transcripts.transcribe(params);
