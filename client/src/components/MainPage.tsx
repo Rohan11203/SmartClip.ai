@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import ClipForm from "./ClipForm";
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
+import Image from "@/assets/ytSearch.webp";
+import VideoDropdown from "./ui/VideoDropdown";
 
 const MainPage = () => {
   const [prompt, setPrompt] = useState("");
@@ -12,6 +14,21 @@ const MainPage = () => {
   const [error, setError] = useState("");
 
   const theme = localStorage.getItem("theme");
+
+  const videos = [
+    {
+      id: "v1",
+      title: "Clip One",
+      thumbnail: "https://res.cloudinary.com/dhaqlhoe7/video/upload/so_3/qetljigcnvxda12n6ijf.jpg",
+      duration: "00:30",
+    },
+    {
+      id: "v2",
+      title: "Clip Two",
+      thumbnail: "https://res.cloudinary.com/dhaqlhoe7/video/upload/so_6/qetljigcnvxda12n6ijf.jpg",
+      duration: "01:12",
+    },
+  ];
 
   const handleExplainSubmit = async () => {
     setLoading(true);
@@ -121,13 +138,18 @@ const MainPage = () => {
         </div>
 
         {/* Prompt textarea */}
+        {/* Drop Down*/}
+
+        <VideoDropdown videos={videos}
+        onSelect={(id) => { console.log("Selected Id", id) }}
+        />
         <div className="bg-white dark:bg-[#121212] rounded-lg shadow p-4">
           <h2 className="text-lg font-semibold mb-4">Prompt</h2>
           <form
-            // onSubmit={(e) => {
-            //   e.preventDefault();
-            //   handleExplainSubmit();
-            // }}
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleExplainSubmit();
+            }}
           >
             <div className="mb-4">
               <textarea
@@ -140,8 +162,8 @@ const MainPage = () => {
               />
             </div>
             <button
-              // disabled={loading}
-              disabled={true}
+              disabled={loading}
+              // disabled={true}
               type="submit"
               className="w-full bg-black hover:bg-gray-900 dark:bg-white dark:hover:bg-gray-100 cursor-pointer text-white dark:text-black font-medium py-2 px-4 rounded-md  "
             >
@@ -161,7 +183,6 @@ const MainPage = () => {
       {/* Right Side - Explanation Display */}
       <div className="w-full md:w-2/3 xl:w-3/4 bg-white dark:bg-[#202123] overflow-y-auto">
         <div className="h-full flex flex-col">
-          
           {/* Explanation header */}
           <div className="border-b border-gray-200 dark:border-gray-800 p-4 flex justify-between">
             <h2 className="text-xl font-semibold">Video Clip Explanation</h2>
