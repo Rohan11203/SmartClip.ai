@@ -1,19 +1,13 @@
-
-import { Route, Routes } from "react-router-dom";
+import MainPage from "@/components/MainPage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import LandingPage from "./pages/LandingPage";
-import { BrowserRouter } from 'react-router-dom'
-import MainPage from "@/components/MainPage";
 
 function App() {
-    
-
- return (
-  <>
-
-  <BrowserRouter>
+  return (
+    <BrowserRouter>
       <Routes>
-        <Route path="/" >
+        <Route path="/">
           <Route index element={<LandingPage />} />
           <Route path="clip" element={<MainPage />} />
           {/*<Route path="contact" element={<Contact />} />*/}
@@ -21,9 +15,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-  {/* <ClipForm /> */}
-  </>
- )
+  );
 }
 
 export default App;

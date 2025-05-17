@@ -6,9 +6,10 @@ import jwt from "jsonwebtoken";
 const JWT_SECRET = process.env.JWT_SECRET!
 export async function Signup(req: any, res: any) {
  const parsed = validateUserData.safeParse(req.body);
+ console.log("Parsed data:", !parsed.success);
   if (!parsed.success) {
     return res.status(400).json({
-      message: "Validation failed",
+      message: "Enter Valid Details",
       errors: parsed.error.errors.map((e) => e.message),
     });
   }
