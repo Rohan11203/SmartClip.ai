@@ -1,12 +1,13 @@
+import passport from "passport";
 import { UserModel } from "../DB";
 import { validateUserData } from "../zod";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET!
+const JWT_SECRET = process.env.JWT_SECRET!;
 export async function Signup(req: any, res: any) {
- const parsed = validateUserData.safeParse(req.body);
- console.log("Parsed data:", !parsed.success);
+  const parsed = validateUserData.safeParse(req.body);
+  console.log("Parsed data:", !parsed.success);
   if (!parsed.success) {
     return res.status(400).json({
       message: "Enter Valid Details",
@@ -30,9 +31,7 @@ export async function Signup(req: any, res: any) {
     const payload = { sub: user._id.toString(), email: user.email };
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "2h" });
 
-
-
-   return res
+    return res
       .status(200)
       .cookie("token", token, {
         httpOnly: false, // in production, set to true
@@ -64,7 +63,8 @@ export async function Signin(req: any, res: any) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password!);
+
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
     }

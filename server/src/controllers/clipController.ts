@@ -10,9 +10,12 @@ const unlinkAsync = promisify(fs.unlink);
 const uploadsDir = path.join(__dirname, "../../uploads");
 
 export async function ClipVideo(req: any, res: any) {
-  console.log((req.user as any).sub);
+  // console.log((req.user as any).sub);
+  console.log(req.user._id)
 
-  const userId = (req.user as any).sub;
+  // const userId = (req.user as any).sub;
+
+  const userId = req.user._id;
   console.log("Clip Video Request:", req.body);
   const { url, startTime, endTime } = req.body as {
     url: string;

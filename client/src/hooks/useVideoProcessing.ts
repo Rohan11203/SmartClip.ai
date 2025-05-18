@@ -33,7 +33,7 @@ export function useVideoProcessing(isActive:boolean) {
         }
         return i + 1;
       });
-    }, 6000);
+    }, 7000);
 
     return () => clearInterval(interval);
   }, [isActive]);

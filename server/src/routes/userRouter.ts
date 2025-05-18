@@ -2,11 +2,30 @@ import { Router } from "express";
 import { Signin, Signup } from "../controllers/userController";
 import { Userauth } from "../auth";
 import { VideoModel } from "../DB";
+import passport from "passport";
 
 export const UserRouter = Router();
 
 UserRouter.post("/signup", Signup);
 UserRouter.post("/signin", Signin);
+UserRouter.get(
+  "/google",
+  passport.authenticate("google", {
+    scope: ["email", "profile"],
+    prompt: "select_account",
+  })
+);
+
+UserRouter.get(
+  "/google/redirect/callback",
+  passport.authenticate("google", {
+    failureRedirect: "/",
+    session: true
+  }),
+  (req: any, res: any) => {
+    res.redirect("http://localhost:5173/chat");
+  }
+);
 
 UserRouter.get("/signout", Userauth, (req, res) => {
   res.json({
@@ -16,7 +35,8 @@ UserRouter.get("/signout", Userauth, (req, res) => {
 });
 
 UserRouter.get("/userVideos", Userauth, async (req: any, res) => {
-  const userId = (req.user as any).sub;
+  // const userId = (req.user as any).sub;
+  const userId = req.user._id;
   try {
     const videos = await VideoModel.find({
       user: userId,

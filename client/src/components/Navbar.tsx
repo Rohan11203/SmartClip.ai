@@ -3,12 +3,14 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import AuthModal from "./AuthModal";
 import { onSignin, onSignup } from "@/api";
+import axios from "axios";
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoding] = useState(false);
   const navigate = useNavigate();
   const isAuth = localStorage.getItem("isAuth");
 
@@ -56,9 +58,16 @@ const Navbar = () => {
     }
   }
 
-  function handleGoogle(mode: any) {
-    // Google OAuth for signup vs signin
-    console.log("Google", mode);
+  async function handleGoogle() {
+    try {
+      setGoogleLoding(true);
+      window.location.href = "http://localhost:3000/api/v1/users/google";
+      localStorage.setItem("isAuth", "true");
+    } catch (error) {
+      console.error("Google Login Error : ", error);
+    } finally {
+      setGoogleLoding(false);
+    }
   }
 
   // Check for system preference on component mount
@@ -154,7 +163,7 @@ const Navbar = () => {
             )}
             <button
               onClick={toggleDarkMode}
-              className="ml-4 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="ml-4 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
             >
               {darkMode ? (
                 <svg
@@ -281,6 +290,7 @@ const Navbar = () => {
         onSubmit={handleSubmit}
         error={errors}
         loading={loading}
+        googleLoading={googleLoading}
       />
 
       <Outlet />

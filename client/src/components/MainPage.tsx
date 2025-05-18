@@ -17,22 +17,6 @@ const MainPage = () => {
 
   const theme = localStorage.getItem("theme");
 
-
-  // const videos = [
-  //   {
-  //     id: "v1",
-  //     title: "Clip One",
-  //     thumbnail: "https://res.cloudinary.com/dhaqlhoe7/video/upload/so_3/qetljigcnvxda12n6ijf.jpg",
-  //     duration: "00:30",
-  //   },
-  //   {
-  //     id: "v2",
-  //     title: "Clip Two",
-  //     thumbnail: "https://res.cloudinary.com/dhaqlhoe7/video/upload/so_6/qetljigcnvxda12n6ijf.jpg",
-  //     duration: "01:12",
-  //   },
-  // ];
-
   async function handleUserVideos() {
     const res = await getUserVideos();
     setVideos(res.data.videos)
