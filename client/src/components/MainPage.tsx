@@ -18,8 +18,9 @@ const MainPage = () => {
   const [videos, setVideos] = useState([]);
   const [videoId, setVideoId] = useState("");
   const [isProfile, setIsProfile] = useState(false);
+  const [islogout,setIsLogout] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const theme = localStorage.getItem("theme");
 
   async function handleUserVideos() {
@@ -78,8 +79,10 @@ const MainPage = () => {
 
   const handleLogout = async () => {
     localStorage.setItem("isAuth", "false");
+    setIsLogout(true)
     await onLogout();
-    navigate("/")
+    setIsLogout(false)
+    navigate("/");
   };
   // Toggle mobile sidebar
   const toggleMobileSidebar = () => {
@@ -180,7 +183,7 @@ const MainPage = () => {
                   color={`${theme == "dark" ? "black" : "white"}`}
                 />
               ) : (
-                "Explain ( Coming Soon )"
+                "Explain"
               )}
             </button>
           </form>
@@ -246,13 +249,17 @@ const MainPage = () => {
           {!isProfile && (
             <div className="absolute right-2 mt-20 w-36 bg-white dark:bg-gray-800 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 z-50 transform origin-top-right transition-all duration-200">
               <div className="p-2">
-                <button
-                  onClick={handleLogout}
-                  className="flex items-center w-full cursor-pointer px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <LogOut className="w-4 h-4 mr-2" />
-                  <span>Logout</span>
-                </button>
+                {!islogout ? (
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center w-full cursor-pointer px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    <span>Logout</span>
+                  </button>
+                ) : (
+                  <ClipLoader size={16} />
+                )}
               </div>
             </div>
           )}
