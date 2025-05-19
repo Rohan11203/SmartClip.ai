@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Signin, Signup } from "../controllers/userController";
+import { Signin, Signout, Signup } from "../controllers/userController";
 import { Userauth } from "../auth";
 import { VideoModel } from "../DB";
 import passport from "passport";
@@ -8,6 +8,7 @@ export const UserRouter = Router();
 
 UserRouter.post("/signup", Signup);
 UserRouter.post("/signin", Signin);
+UserRouter.post("/signout", Signout)
 UserRouter.get(
   "/google",
   passport.authenticate("google", {

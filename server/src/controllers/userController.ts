@@ -3,6 +3,7 @@ import { UserModel } from "../DB";
 import { validateUserData } from "../zod";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import path from "path";
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 export async function Signup(req: any, res: any) {
@@ -88,5 +89,42 @@ export async function Signin(req: any, res: any) {
   } catch (err) {
     console.error("Signin error:", err);
     return res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+export async function Signout(req: any, res: any, next: any) {
+  try {
+    res.clearCookie("token", {
+      path: "/",
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+    });
+
+    if (typeof req.logout === "function") {
+      req.logout((err: any) => {
+        if (err) return next(err);
+      });
+    }
+
+    if (req.session) {
+      req.session.destroy((err: any) => {
+        if (err) return next(err);
+
+        // 4. Clear the session cookie on the client
+        res.clearCookie("connect.sid", {
+          path: "/",
+          httpOnly: true,
+          secure: false,
+          sameSite: "lax",
+        });
+
+        res.status(200).json({ message: "Logged out successfully." });
+      });
+    } else {
+      res.status(200).json({ message: "Logged out successfully." });
+    }
+  } catch (error) {
+    next(error);
   }
 }
