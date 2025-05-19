@@ -3,9 +3,10 @@ import ClipForm from "./ClipForm";
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 import VideoDropdown from "./ui/VideoDropdown";
-import { getUserVideos } from "@/api";
+import { getUserVideos, onLogout } from "@/api";
 import { FaUser } from "react-icons/fa";
-import { LogOut } from 'lucide-react';
+import { LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 // import { getUserVideos } from "@/api";
 const MainPage = () => {
   const [prompt, setPrompt] = useState("");
@@ -18,6 +19,7 @@ const MainPage = () => {
   const [videoId, setVideoId] = useState("");
   const [isProfile, setIsProfile] = useState(false);
 
+  const navigate = useNavigate()
   const theme = localStorage.getItem("theme");
 
   async function handleUserVideos() {
@@ -74,11 +76,11 @@ const MainPage = () => {
     handleUserVideos();
   }, []);
 
-
-  const  handleLogout = async () => {
+  const handleLogout = async () => {
     localStorage.setItem("isAuth", "false");
-    
-  }
+    await onLogout();
+    navigate("/")
+  };
   // Toggle mobile sidebar
   const toggleMobileSidebar = () => {
     setShowMobileSidebar(!showMobileSidebar);
@@ -243,15 +245,16 @@ const MainPage = () => {
           {/* User Profile */}
           {!isProfile && (
             <div className="absolute right-2 mt-20 w-36 bg-white dark:bg-gray-800 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 z-50 transform origin-top-right transition-all duration-200">
-          <div className="p-2">
-            <button 
-            onClick={handleLogout}
-            className="flex items-center w-full cursor-pointer px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <LogOut className="w-4 h-4 mr-2" />
-              <span>Logout</span>
-            </button>
-          </div>
-        </div>
+              <div className="p-2">
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center w-full cursor-pointer px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  <span>Logout</span>
+                </button>
+              </div>
+            </div>
           )}
           {/* Explanation content */}
           <div className="flex-grow p-6">

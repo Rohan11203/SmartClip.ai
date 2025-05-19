@@ -18,3 +18,7 @@ export async function onSignin(data:AuthDataInterface) {
 export async function getUserVideos() {
     return await axios.get("http://localhost:3000/api/v1/users/userVideos")
 }
+
+export async function onLogout() {
+    return await axios.post("http://localhost:3000/api/v1/users/logout")
+}
