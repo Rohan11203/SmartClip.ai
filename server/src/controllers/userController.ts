@@ -94,36 +94,39 @@ export async function Signin(req: any, res: any) {
 
 export async function Signout(req: any, res: any, next: any) {
   try {
-    res.clearCookie("token", {
-      path: "/",
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax",
-    });
+    console.log("here");
 
-    if (typeof req.logout === "function") {
-      req.logout((err: any) => {
-        if (err) return next(err);
+    // read the incoming cookies
+    const { token } = req.cookies;
+
+    if (token) {
+      console.log("In token");
+      res.clearCookie("token", {
+        path: "/",
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax",
       });
-    }
-
-    if (req.session) {
-      req.session.destroy((err: any) => {
+    } else {
+      console.log("In session");
+      // destroy the session server‑side first
+      req.session?.destroy((err: any) => {
         if (err) return next(err);
-
-        // 4. Clear the session cookie on the client
+        // then clear the session cookie
         res.clearCookie("connect.sid", {
           path: "/",
           httpOnly: true,
           secure: false,
           sameSite: "lax",
         });
-
-        res.status(200).json({ message: "Logged out successfully." });
+         return res.status(200).json({ message: "Logged out successfully." });
       });
-    } else {
-      res.status(200).json({ message: "Logged out successfully." });
+      return;
     }
+
+    return res.status(200).json({ message: "Logged out successfully." });
+
+    // 4. Clear the session cookie on the client
   } catch (error) {
     next(error);
   }

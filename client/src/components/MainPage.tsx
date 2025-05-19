@@ -4,6 +4,8 @@ import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 import VideoDropdown from "./ui/VideoDropdown";
 import { getUserVideos } from "@/api";
+import { FaUser } from "react-icons/fa";
+import { LogOut } from 'lucide-react';
 // import { getUserVideos } from "@/api";
 const MainPage = () => {
   const [prompt, setPrompt] = useState("");
@@ -12,17 +14,17 @@ const MainPage = () => {
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [videos,setVideos] = useState([])
-  const [videoId,setVideoId] = useState("")
+  const [videos, setVideos] = useState([]);
+  const [videoId, setVideoId] = useState("");
+  const [isProfile, setIsProfile] = useState(false);
 
   const theme = localStorage.getItem("theme");
 
   async function handleUserVideos() {
     const res = await getUserVideos();
-    setVideos(res.data.videos)
-    console.log(res.data.videos)
+    setVideos(res.data.videos);
+    console.log(res.data.videos);
   }
-
 
   const handleExplainSubmit = async () => {
     setLoading(true);
@@ -30,7 +32,7 @@ const MainPage = () => {
       setError("");
       const response = await axios.post(
         "http://localhost:3000/api/v1/video/explain",
-        { prompt,videoId }
+        { prompt, videoId }
       );
       if (response.data?.error) {
         throw new Error(response.data.error);
@@ -69,10 +71,14 @@ const MainPage = () => {
       setDarkMode(true);
       document.documentElement.classList.add("dark");
     }
-    handleUserVideos()
-
+    handleUserVideos();
   }, []);
 
+
+  const  handleLogout = async () => {
+    localStorage.setItem("isAuth", "false");
+    
+  }
   // Toggle mobile sidebar
   const toggleMobileSidebar = () => {
     setShowMobileSidebar(!showMobileSidebar);
@@ -136,8 +142,11 @@ const MainPage = () => {
         {/* Prompt textarea */}
         {/* Drop Down*/}
 
-        <VideoDropdown videos={videos}
-        onSelect={(id) => { setVideoId(id) }}
+        <VideoDropdown
+          videos={videos}
+          onSelect={(id) => {
+            setVideoId(id);
+          }}
         />
         <div className="bg-white dark:bg-[#121212] rounded-lg shadow p-4">
           <h2 className="text-lg font-semibold mb-4">Prompt</h2>
@@ -182,44 +191,68 @@ const MainPage = () => {
           {/* Explanation header */}
           <div className="border-b border-gray-200 dark:border-gray-800 p-4 flex justify-between">
             <h2 className="text-xl font-semibold">Video Clip Explanation</h2>
-            <button
-              onClick={toggleDarkMode}
-              className="ml-4 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
-            >
-              {darkMode ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                  />
-                </svg>
-              )}
-            </button>
+
+            <div className="flex justify-center items-center gap-4">
+              <button
+                onClick={toggleDarkMode}
+                className="ml-4 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
+              >
+                {darkMode ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                    />
+                  </svg>
+                )}
+              </button>
+              <div
+                onClick={() => {
+                  setIsProfile(!isProfile);
+                }}
+                className="border rounded-xl p-2 cursor-pointer"
+              >
+                <FaUser />
+              </div>
+            </div>
           </div>
 
+          {/* User Profile */}
+          {!isProfile && (
+            <div className="absolute right-2 mt-20 w-36 bg-white dark:bg-gray-800 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 z-50 transform origin-top-right transition-all duration-200">
+          <div className="p-2">
+            <button 
+            onClick={handleLogout}
+            className="flex items-center w-full cursor-pointer px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <LogOut className="w-4 h-4 mr-2" />
+              <span>Logout</span>
+            </button>
+          </div>
+        </div>
+          )}
           {/* Explanation content */}
           <div className="flex-grow p-6">
             {error ? (

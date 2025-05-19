@@ -8,7 +8,7 @@ export const UserRouter = Router();
 
 UserRouter.post("/signup", Signup);
 UserRouter.post("/signin", Signin);
-UserRouter.post("/signout", Signout)
+UserRouter.post("/logout", Userauth,Signout)
 UserRouter.get(
   "/google",
   passport.authenticate("google", {
