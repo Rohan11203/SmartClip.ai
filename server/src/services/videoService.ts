@@ -44,7 +44,7 @@ export async function downloadSection(
       "--geo-bypass",
 
       // (optional) if you later set up a proxy in ENV:
-      // "--proxy", process.env.YTDLP_PROXY!,
+       "--proxy", process.env.YTDLP_PROXY!,
 
       // verbose logging for debug
       "--verbose",
