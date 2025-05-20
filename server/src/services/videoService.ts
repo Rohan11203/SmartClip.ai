@@ -13,6 +13,7 @@ export async function downloadSection(
   return new Promise((resolve, reject) => {
     const sectionArg = `*${start}-${end}`;
     const template = `${outputBase}.%(ext)s`;
+    const cookiesPath = "/etc/secrets/cookies.txt";
     const args = [
       url,
       // pick the best MP4 video ≤720p plus best M4A audio
@@ -38,13 +39,20 @@ export async function downloadSection(
       "--no-warnings",
 
       // force IPv4 (avoid flaky IPv6 on cloud hosts)
-      "--force-ipv4",
+      // "--force-ipv4",
 
       // bypass geographic restrictions
-      "--geo-bypass",
+      // "--geo-bypass",
 
+      "--add-header",
+      "referer:youtube.com",
+      "--add-header",
+      "user-agent:Mozilla/5.0",
+      "--cookies",
+      cookiesPath, // 👈 point this to your exported file
       // (optional) if you later set up a proxy in ENV:
-      // "--proxy", process.env.YTDLP_PROXY!,
+      // "--proxy",
+      // process.env.YTDLP_PROXY!,
 
       // verbose logging for debug
       "--verbose",

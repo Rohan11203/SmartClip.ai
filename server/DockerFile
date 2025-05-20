@@ -1,20 +1,38 @@
 FROM node:18-bullseye-slim
 
-# 1. Install ffmpeg + pip + yt-dlp
+# Install ffmpeg + pip + yt-dlp
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       ffmpeg \
       python3-pip \
+      curl \
     && pip3 install yt-dlp \
     && rm -rf /var/lib/apt/lists/*
-
-# 2. App setup
+    
+# App setup
 WORKDIR /usr/src/app
+
+# Copy package files and install dependencies
 COPY package*.json ./
 RUN npm ci
+
+# Copy configuration files
 COPY tsconfig.json ./
+
+# Create a directory for secrets
+RUN mkdir -p /etc/secrets
+
+# Copy source code
 COPY src ./src
+
+# Build the application
 RUN npm run build
+
+# Copy cookies file to /etc/secrets for better security practice
+COPY cookies.txt /etc/secrets/cookies.txt
+
+# Set permissions for the cookies file
+RUN chmod 600 /etc/secrets/cookies.txt
 
 EXPOSE $PORT
 CMD ["node", "dist/index.js"]
