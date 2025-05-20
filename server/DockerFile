@@ -1,0 +1,31 @@
+# server/Dockerfile
+
+# 1. Base image
+FROM node:18-bullseye-slim
+
+# 2. Install system deps
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+      ffmpeg \
+      yt-dlp \
+ && rm -rf /var/lib/apt/lists/*
+
+# 3. Create & switch into app dir
+WORKDIR /usr/src/app
+
+# 4. Install Node dependencies
+COPY package*.json ./
+RUN npm ci
+
+# 5. Copy TS config & source
+COPY tsconfig.json ./
+COPY src ./src
+
+# 6. Build to JS
+RUN npm run build
+
+# 7. Expose port (Render sets $PORT for you)
+EXPOSE $PORT
+
+# 8. Launch
+CMD ["node", "dist/index.js"]
