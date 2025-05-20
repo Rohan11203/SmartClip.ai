@@ -12,7 +12,7 @@ const Steps = () => {
     viewport={{ once: true, amount: 0.2 }}
     transition={{ duration: 0.6, ease: "easeOut" }}
     className="relative">
-      <div className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-black dark:bg-[radial-gradient(#ffffff33_1px,#000000_1px)] bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+      <div className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-black dark:bg-[radial-gradient(#ffffff33_1px,#000000_1px)] bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:40px_40px]"></div>
       <div className="sm:pt-50 py-20  max-w-6xl mx-auto px-4">
         <div className="pb-8">
           <div className="flex justify-center mb-10">
