@@ -24,7 +24,7 @@ const ClipForm = () => {
       setError(""); // Clear previous errors
 
       const response = await axios.post(
-        "http://localhost:3000/api/v1/videos/clip",
+        "https://smartclip-ai.onrender.com/api/v1/videos/clip",
         data,
         { responseType: "blob" }
       );

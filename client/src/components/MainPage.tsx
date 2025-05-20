@@ -34,7 +34,7 @@ const MainPage = () => {
     try {
       setError("");
       const response = await axios.post(
-        "http://localhost:3000/api/v1/video/explain",
+        "https://smartclip-ai.onrender.com/api/v1/video/explain",
         { prompt, videoId }
       );
       if (response.data?.error) {

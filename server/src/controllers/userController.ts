@@ -35,9 +35,9 @@ export async function Signup(req: any, res: any) {
     return res
       .status(200)
       .cookie("token", token, {
-        httpOnly: false, // in production, set to true
-        secure: false, // Needed for HTTPS (Render uses HTTPS)
-        sameSite: "lax", // none for production
+        httpOnly: true, // in production, set to true
+        secure: true, // Needed for HTTPS (Render uses HTTPS)
+        sameSite: "none", // none for production
       })
       .json({
         success: true,
@@ -76,9 +76,9 @@ export async function Signin(req: any, res: any) {
     return res
       .status(200)
       .cookie("token", token, {
-        httpOnly: false, // in production, set to true
-        secure: false, // Needed for HTTPS (Render uses HTTPS)
-        sameSite: "lax", // none for production
+        httpOnly: true, // in production, set to true
+        secure: true, // Needed for HTTPS (Render uses HTTPS)
+        sameSite: "none", // none for production
       })
       .json({
         success: true,
@@ -104,8 +104,8 @@ export async function Signout(req: any, res: any, next: any) {
       res.clearCookie("token", {
         path: "/",
         httpOnly: true,
-        secure: false,
-        sameSite: "lax",
+        secure: true,
+        sameSite: "none",
       });
     } else {
       console.log("In session");
