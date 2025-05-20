@@ -13,7 +13,6 @@ export async function videoExplainer(req: any, res: any) {
       if (videoUrlResponse?.url) {
         const videoUrl = videoUrlResponse?.url;
 
-      
         const client = new AssemblyAI({
           apiKey: process.env.ASSEMBLYAI_API_KEY!,
         });
@@ -28,28 +27,29 @@ export async function videoExplainer(req: any, res: any) {
       }
     }
 
+     console.log(prompt)
     const contents = [
       ...(transcriptText
         ? [{ text: `Here's a transcript of a video:\n\n"${transcriptText}"` }]
         : []),
 
       {
-        text: `You are a helpful assistant. A user says:
-“${prompt}”
+        text: `You are an intelligent assistant that helps explain video content to users. When responding to user queries about a video:
 
-First, decide which of these three they're asking:
-  1. **VideoSpeaker Personal** : personal or private details about the person in the video (e.g. “What's their name?”, “Where do they live?”).
-  2. **General Personal/Knowledge** : everyday chitchat or factual questions (e.g. “How are you?”, “What's the capital of India?”).
-  3. **Other** : anything else.
+"${prompt}"
 
-If it's **VideoSpeaker Personal**, politely refuse:
-  “I'm sorry, I can't share personal information about individuals.”
+First, categorize the query into one of these three types:
+  1. **Personal Information Requests**: Questions seeking private details about individuals appearing in the video (e.g., "What's the presenter's home address?", "Share their personal phone number," "Where do they live?")
+  2. **General Knowledge Questions**: Standard factual questions or conversational queries unrelated to the video (e.g., "What's the capital of France?", "How are you today?")
+  3. **Video Content Questions**: Questions about the content, topics, explanations, or demonstrations shown in the video
 
-If it's **General Personal/Knowledge**, answer normally as a chat assistant.
+For your response:
+- If it's a **Personal Information Request**: Politely decline with: "I'm sorry, I can't provide personal or private information about individuals in the video. I'd be happy to discuss the content or concepts presented instead."
+- If it's a **General Knowledge Question**: Answer helpfully as you normally would, providing accurate information or appropriate conversational responses.
+- If it's a **Video Content Question**: Provide a thorough, detailed explanation about the video's content, concepts, or demonstrations relevant to the query.
 
-Otherwise, answer the user's request directly.
-
-Keep your responses big and ontopic.`,
+don't give type of Query and all that directly respond with answer please
+Always maintain a helpful, informative tone and focus your responses on being comprehensive and relevant to what the user is asking about the video content when appropriate.`,
       },
     ];
 
