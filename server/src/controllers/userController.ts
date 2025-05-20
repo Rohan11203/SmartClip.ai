@@ -116,8 +116,8 @@ export async function Signout(req: any, res: any, next: any) {
         res.clearCookie("connect.sid", {
           path: "/",
           httpOnly: true,
-          secure: false,
-          sameSite: "lax",
+          secure: true,
+          sameSite: "none",
         });
          return res.status(200).json({ message: "Logged out successfully." });
       });
