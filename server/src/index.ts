@@ -16,7 +16,7 @@ import { videoExplainerRoutes } from "./routes/videoExplainerRoutes";
 const app = express();
 app.use(
   cors({
-    origin: ["http://localhost:5173"], // frontend urls
+    origin: ["http://localhost:5173","https://smartclip-ai1.onrender.com"], // frontend urls
     credentials: true, // allow cookie headers
   })
 );
