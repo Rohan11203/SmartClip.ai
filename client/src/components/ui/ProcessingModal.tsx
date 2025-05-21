@@ -1,4 +1,3 @@
-// src/components/ProcessingModal.jsx
 import { Fragment } from 'react';
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 import { useVideoProcessing } from "@/hooks/useVideoProcessing";

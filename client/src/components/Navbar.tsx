@@ -3,7 +3,6 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import AuthModal from "./AuthModal";
 import { onSignin, onSignup } from "@/api";
-import axios from "axios";
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

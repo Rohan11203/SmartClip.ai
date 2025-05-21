@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import Lenis from "lenis"
 
 const LandingPage = () => {
-  const theme = localStorage.getItem("theme");
+  // const theme = localStorage.getItem("theme");
 
   useEffect(() => {
     const lenis = new Lenis();
