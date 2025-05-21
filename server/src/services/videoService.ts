@@ -51,6 +51,7 @@ export async function downloadSection(
       "--cookies",
       cookiesPath, // 👈 point this to your exported file
       // (optional) if you later set up a proxy in ENV:
+       "--no-save-cookies",  
       "--proxy",
       process.env.YTDLP_PROXY!,
 
