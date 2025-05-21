@@ -39,10 +39,10 @@ export async function downloadSection(
       "--no-warnings",
 
       // force IPv4 (avoid flaky IPv6 on cloud hosts)
-      // "--force-ipv4",
+      "--force-ipv4",
 
       // bypass geographic restrictions
-      // "--geo-bypass",
+      "--geo-bypass",
 
       "--add-header",
       "referer:youtube.com",
@@ -51,8 +51,8 @@ export async function downloadSection(
       "--cookies",
       cookiesPath, // 👈 point this to your exported file
       // (optional) if you later set up a proxy in ENV:
-      // "--proxy",
-      // process.env.YTDLP_PROXY!,
+      "--proxy",
+      process.env.YTDLP_PROXY!,
 
       // verbose logging for debug
       "--verbose",

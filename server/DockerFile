@@ -1,22 +1,33 @@
+# server/Dockerfile
+
+# 1. Base image
 FROM node:18-bullseye-slim
 
-# 1. Install ffmpeg + pip + yt-dlp
+# 2. Install ffmpeg + pip + yt-dlp
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       ffmpeg \
-      python3-pip \
-    && pip3 install yt-dlp \
-    && rm -rf /var/lib/apt/lists/*
+      python3-pip && \
+    pip3 install yt-dlp && \
+    rm -rf /var/lib/apt/lists/*
 
-    
-# 2. App setup
+# 3. Create & switch into app directory
 WORKDIR /usr/src/app
+
+# 4. Copy package manifests and install dependencies
 COPY package*.json ./
 RUN npm ci
+
+# 5. Copy TypeScript config & source, then build
 COPY tsconfig.json ./
 COPY src ./src
-ADD https://drive.google.com/file/d/1BH5vcPDtov45Gtu6_s3shqOh0dLQyB90/view?usp=sharing /usr/src/app/cookies.txt
 RUN npm run build
 
+# 6. Expose the port (Render provides $PORT automatically)
 EXPOSE $PORT
-CMD ["node", "dist/index.js"]
+
+# 7. Entry point: copy secret if it exists, then start the app
+CMD ["sh", "-c", "\
+    cp /etc/secrets/cookies.txt ./cookies.txt 2>/dev/null || true && \
+    node dist/index.js \
+"]
