@@ -14,55 +14,30 @@ export async function downloadSection(
     const sectionArg = `*${start}-${end}`;
     const template = `${outputBase}.%(ext)s`;
 
-    const COOKIE_PATH = fs.existsSync("/etc/secrets/cookies.txt")
-      ? "/etc/secrets/cookies.txt"
-      : "./cookies.txt"; // fallback for local dev
+    const COOKIE_PATH = fs.existsSync("./cookies.txt") ? "./cookies.txt" : "";
 
     console.log("Cookie path here", COOKIE_PATH);
     const args = [
       url,
-      // pick the best MP4 video ≤720p plus best M4A audio
       "-f",
       "bestvideo[ext=mp4][height<=720]+bestaudio[ext=m4a]/best",
-
-      // only grab the  start–end section
       "--download-sections",
       sectionArg,
-
-      // ensure mp4 output
       "--merge-output-format",
       "mp4",
       "--recode-video",
       "mp4",
-
-      // output template
       "-o",
       template,
-
-      // remove certificate checks & warnings
       "--no-check-certificates",
       "--no-warnings",
-
-      // force IPv4 (avoid flaky IPv6 on cloud hosts)
-      "--force-ipv4",
-
-      // bypass geographic restrictions
-      "--geo-bypass",
-
-      "--add-header",
-      "referer:youtube.com",
-      "--add-header",
-      "user-agent:Mozilla/5.0",
-      // only add cookies if the file exists
-      ...(fs.existsSync(COOKIE_PATH) ? ["--cookies", COOKIE_PATH] : []),
-      "--proxy",
-      process.env.YTDLP_PROXY!,
-
-      // verbose logging for debug
+      // only add cookies if present
+      ...(COOKIE_PATH ? ["--cookies", COOKIE_PATH] : []),
+      // verbose helps debug
       "--verbose",
     ];
 
-    console.log("args Log here",args)
+    console.log("args Log here", args);
     const proc = spawn("yt-dlp", args);
     let stdout = "";
     let stderr = "";
