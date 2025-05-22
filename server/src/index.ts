@@ -1,9 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
+import session from "express-session";
+
 import cookieParser from "cookie-parser";
 import cookieSession from "cookie-session";
 import passport from "passport";
-import session from "express-session";
 dotenv.config();
 import cors from "cors";
 import { UserRouter } from "./routes/userRouter";
@@ -14,6 +15,9 @@ import path from "path";
 import { videoExplainerRoutes } from "./routes/videoExplainerRoutes";
 
 const app = express();
+
+app.set("trust proxy", 1);
+
 app.use(
   cors({
     origin: ["http://localhost:5173","https://smartclip-ai1.onrender.com"], // frontend urls
