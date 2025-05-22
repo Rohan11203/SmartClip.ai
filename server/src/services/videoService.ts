@@ -13,7 +13,12 @@ export async function downloadSection(
   return new Promise((resolve, reject) => {
     const sectionArg = `*${start}-${end}`;
     const template = `${outputBase}.%(ext)s`;
-    const cookiesPath = fs.existsSync("./cookies.txt") ? "./cookies.txt" : "";
+
+    const COOKIE_PATH = fs.existsSync("/etc/secrets/cookies.txt")
+      ? "/etc/secrets/cookies.txt"
+      : "./cookies.txt"; // fallback for local dev
+
+    console.log("Cookie path here", COOKIE_PATH);
     const args = [
       url,
       // pick the best MP4 video ≤720p plus best M4A audio
@@ -48,9 +53,8 @@ export async function downloadSection(
       "referer:youtube.com",
       "--add-header",
       "user-agent:Mozilla/5.0",
-      "--cookies",
-      cookiesPath, // 👈 point this to your exported file
-      // (optional) if you later set up a proxy in ENV:
+      // only add cookies if the file exists
+      ...(fs.existsSync(COOKIE_PATH) ? ["--cookies", COOKIE_PATH] : []),
       "--proxy",
       process.env.YTDLP_PROXY!,
 
@@ -58,7 +62,7 @@ export async function downloadSection(
       "--verbose",
     ];
 
-    if (cookiesPath) args.push("--cookies", cookiesPath);
+    console.log("args Log here",args)
     const proc = spawn("yt-dlp", args);
     let stdout = "";
     let stderr = "";
