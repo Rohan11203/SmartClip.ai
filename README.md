@@ -31,7 +31,6 @@ A web application that lets users paste a YouTube link, select a start/end time,
 - **Database**: MongoDB (Mongoose)  
 - **CI/CD**: GitHub Actions  
 - **Containerization**: Docker  
-- **Hosting**: AWS Elastic Beanstalk (or your preferred Docker host)
 
 ---
 
