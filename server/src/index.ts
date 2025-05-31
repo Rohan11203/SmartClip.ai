@@ -13,6 +13,7 @@ import mongoose from "mongoose";
 import { ClipRouter } from "./routes/clipRoutes";
 import path from "path";
 import { videoExplainerRoutes } from "./routes/videoExplainerRoutes";
+import { uploadVideo } from "./routes/uploadVideo";
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.use("/api/v1/users", UserRouter);
 app.use("/api/v1/video", videoExplainerRoutes);
 
 app.use("/api/v1/videos", ClipRouter);
+app.use("/api/v1/upload", uploadVideo)
 
 const MongoUrl1 = process.env.MongoUrl!;
 

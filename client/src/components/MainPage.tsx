@@ -7,6 +7,7 @@ import { getUserVideos, onLogout } from "@/api";
 import { FaUser } from "react-icons/fa";
 import { LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import VideoUpload from "./VideoUpload";
 // import { getUserVideos } from "@/api";
 const MainPage = () => {
   const [prompt, setPrompt] = useState("");
@@ -18,7 +19,7 @@ const MainPage = () => {
   const [videos, setVideos] = useState([]);
   const [videoId, setVideoId] = useState("");
   const [isProfile, setIsProfile] = useState(false);
-  const [islogout,setIsLogout] = useState(false);
+  const [islogout, setIsLogout] = useState(false);
 
   const navigate = useNavigate();
   const theme = localStorage.getItem("theme");
@@ -79,9 +80,9 @@ const MainPage = () => {
 
   const handleLogout = async () => {
     localStorage.setItem("isAuth", "false");
-    setIsLogout(true)
+    setIsLogout(true);
     await onLogout();
-    setIsLogout(false)
+    setIsLogout(false);
     navigate("/");
   };
   // Toggle mobile sidebar
@@ -147,6 +148,16 @@ const MainPage = () => {
         {/* Prompt textarea */}
         {/* Drop Down*/}
 
+        <div className="mb-6 bg-white dark:bg-[#121212] rounded-lg shadow p-4">
+          <h2 className="text-lg font-semibold mb-4">Upload New Video</h2>
+          <VideoUpload />
+          {/**
+           * Note: You can optionally pass a callback prop like `onUploadSuccess`
+           * from VideoUpload. Then, inside VideoUpload, call `props.onUploadSuccess()`
+           * after a successful upload so that MainPage can re-fetch the videos list.
+           */}
+        </div>
+
         <VideoDropdown
           videos={videos}
           onSelect={(id) => {
@@ -191,6 +202,7 @@ const MainPage = () => {
       </div>
 
       {/* Right Side - Explanation Display */}
+
       <div className="w-full md:w-2/3 xl:w-3/4 bg-white dark:bg-[#202123] overflow-y-auto">
         <div className="h-full flex flex-col">
           {/* Explanation header */}
