@@ -7,14 +7,16 @@ const upload = multer({ storage });
 
 export const uploadVideo = Router();
 uploadVideo.post(
-  "/",
+  "/upload",
   Userauth,
   upload.single("video"),
   async (req: any, res: any) => {
     const userId = req.user._id;
 
-    const file = req.file; 
+    console.log("debugging1");
+    const file = req.file;
 
+    console.log(file);
     if (!file) {
       return res.status(400).json({ message: "No file uploaded" });
     }

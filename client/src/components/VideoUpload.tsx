@@ -26,7 +26,7 @@ const VideoUpload = () => {
     setIsloading(false);
 
       const res = await axios.post(
-        "https://smartclip-ai.onrender.com/api/v1/upload",
+        "https://smartclip-ai.onrender.com/api/v1/video/upload",
         formData,
         {
           headers: {

@@ -48,7 +48,7 @@ app.use("/api/v1/users", UserRouter);
 app.use("/api/v1/video", videoExplainerRoutes);
 
 app.use("/api/v1/videos", ClipRouter);
-app.use("/api/v1/upload", uploadVideo)
+app.use("/api/v1/video", uploadVideo)
 
 const MongoUrl1 = process.env.MongoUrl!;
 
