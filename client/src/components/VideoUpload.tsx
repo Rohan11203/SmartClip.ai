@@ -56,13 +56,13 @@ const VideoUpload = () => {
         type="file"
         accept="video/*"
         onChange={handleFileChange}
-        className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full mb-4 px-4 py-2 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
       {loading ? (
         <button
           onClick={handleUpload}
-          className="w-full bg-blue-600 cursor-pointer text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+          className="w-full bg-gradient-to-r from-black via-gray-700 to-black  cursor-pointer text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300"
         >
           Upload
         </button>
@@ -73,7 +73,7 @@ const VideoUpload = () => {
       )}
 
       {message && (
-        <p className="mt-4 text-center text-sm text-gray-800">{message}</p>
+        <p className="mt-4 text-center text-sm font-bold text-gray-800">{message}</p>
       )}
     </div>
   );
