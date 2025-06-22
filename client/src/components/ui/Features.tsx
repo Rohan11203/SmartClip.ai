@@ -20,7 +20,7 @@ const Features = () => {
             {features.map((feature, idx) => (
               <li
                 key={idx}
-                className="text-slate-800 dark:text-orange-100 p-2 rounded-4xl bg-white dark:bg-[#121212] whitespace-nowrap"
+                className="text-slate-800 dark:text-white p-2 rounded-4xl bg-white dark:bg-[#121212] whitespace-nowrap"
               >
                 {feature}
               </li>

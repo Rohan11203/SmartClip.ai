@@ -91,7 +91,7 @@ const LandingPage = () => {
     bg-white
     bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(255,224,189,0.5)_100%)]
         dark:bg-[#000000]
-        dark:bg-[radial-gradient(#ffffff33_1px,#000000_1px)] dark:bg-[size:40px_40px]
+        dark:bg-[radial-gradient(#000000_1px,#000000_1px)] dark:bg-[size:40px_40px]
 
         `}
       ></div>

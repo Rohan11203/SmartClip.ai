@@ -20,7 +20,7 @@ const Ai = () => {
           <div>
             <input
               placeholder="Enter Your Email"
-              className="dark:shadow-slate-800 outline-none shadow-sm h-12 w-full sm:w-86 p-4 bg-white dark:bg-[#121212]  rounded-4xl"
+              className="dark:shadow-slate-800 dark:text-grey-100 outline-none shadow-sm h-12 w-full sm:w-86 p-4 bg-white dark:bg-[#121212]   rounded-4xl"
             />
           </div>
           <button className=" bg-orange-500 cursor-pointer  hover:bg-amber-500 transition duration-300 text-white h-12 sm:w-26 w-full rounded-4xl ">
