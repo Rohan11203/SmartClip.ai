@@ -5,7 +5,7 @@ import { VideoModel } from "../DB";
 export async function videoExplainer(req: any, res: any) {
   const { prompt, videoId } = req.body;
 
-  if (!prompt || !videoId) {
+  if (!prompt) {
     return res.status(400).json({
       message: "Bad Request",
       error: "Missing required fields: prompt and videoId.",
