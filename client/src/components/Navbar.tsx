@@ -22,7 +22,7 @@ const Navbar = () => {
         console.log("Signup success:", res);
         localStorage.setItem("isAuth", "true");
         setErrors([]);
-        navigate("/chat");
+        navigate("/clipVideos");
       } catch (err: any) {
         if (err.response?.data?.errors) {
           setErrors(err.response.data.errors);
@@ -42,7 +42,7 @@ const Navbar = () => {
         console.log("SignIn success:", res);
         localStorage.setItem("isAuth", "true");
         setErrors([]);
-        navigate("/chat");
+        navigate("/clipVideos");
       } catch (err: any) {
         if (err.response?.data?.errors) {
           setErrors(err.response.data.errors);
@@ -147,10 +147,10 @@ const Navbar = () => {
           <div className="flex items-center">
             {isAuth === "true" ? (
               <button
-                onClick={() => navigate("/chat")}
+                onClick={() => navigate("/clipVideos")}
                 className="sm:block hidden text-center bg-orange-500 cursor-pointer text-white px-4 py-2 w-full rounded-4xl font-semibold  hover:bg-orange-400 transition duration-300"
               >
-                Chat Now
+                Clip now
               </button>
             ) : (
               <button
@@ -265,7 +265,7 @@ const Navbar = () => {
             <div className="mt-4">
               {isAuth === "true" ? (
                 <button
-                  onClick={() => navigate("/chat")}
+                  onClick={() => navigate("/clipVideos")}
                   className="block text-center bg-orange-500  text-white px-4 py-2 w-full rounded-4xl font-semibold"
                 >
                   Chat

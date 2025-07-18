@@ -12,15 +12,38 @@ const Features = () => {
     ];
   
     return (
-      <div className="mt-8 spectral-medium">
-        <h1 className="mb-8">Our Top-Notch Features</h1>
-  
-        <div className="w-full inline-flex flex-nowrap p-2  overflow-hidden">
-          <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
+     <>
+      {/* The keyframes for the infinite scroll animation. 
+      */}
+      <style>{`
+        @keyframes infinite-scroll {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+      `}</style>
+
+      <div className="mt-12 text-center">
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-neutral-200">
+          Our Top-Notch Features
+        </h2>
+        
+        <div 
+          className="w-full mt-8 inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]"
+        >
+          <ul className="flex items-center justify-center md:justify-start [&_li]:mx-4 animate-[infinite-scroll_40s_linear_infinite]">
+            {/* Render the list twice for a seamless loop */}
             {features.map((feature, idx) => (
               <li
                 key={idx}
-                className="text-slate-800 dark:text-white p-2 rounded-4xl bg-white dark:bg-[#121212] whitespace-nowrap"
+                className="bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-full px-6 py-2 text-gray-700 dark:text-neutral-300 whitespace-nowrap transition-colors hover:bg-gray-100 dark:hover:bg-neutral-800"
+              >
+                {feature}
+              </li>
+            ))}
+            {features.map((feature, idx) => (
+              <li
+                key={`duplicate-${idx}`}
+                className="bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-full px-6 py-2 text-gray-700 dark:text-neutral-300 whitespace-nowrap transition-colors hover:bg-gray-100 dark:hover:bg-neutral-800"
               >
                 {feature}
               </li>
@@ -28,6 +51,7 @@ const Features = () => {
           </ul>
         </div>
       </div>
+    </>
     );
   };
   

@@ -11,7 +11,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
 
         <Route element={<PrivateRoute />}>
-          <Route path="/chat" element={<MainPage />} />
+          <Route path="/clipVideos" element={<MainPage />} />
         </Route>
 
         <Route path="*" element={<p>Page not found</p>} />

@@ -22,7 +22,7 @@ export const Footer = () => {
             href="#join-beta"
             className="inline-block bg-orange-600 hover:bg-amber-500  text-white font-medium py-2 px-4 rounded-lg transition  duration-300"
           >
-            Join Beta 
+            Explore Now
           </a>
         </div>
 

@@ -1,9 +1,10 @@
 import StepCard from "./ui/StepCard";
 import { motion } from "framer-motion";
-import Image from "@/assets/smartClipImage2.jpg";
+import Image from "@/assets/clip.png";
 import Image2 from "@/assets/ytSearch.webp";
+import Image3 from "@/assets/download.png";
 import VideoPlayer from "./VideoPresent";
-import VideoClip from '@/assets/smartClip.mp4';
+import VideoClip from "@/assets/smartClip.mp4";
 
 const Steps = () => {
   return (
@@ -25,31 +26,26 @@ const Steps = () => {
               </h1>
             </div>
 
-            <VideoPlayer
-              className="mx-auto mt-10 max-w-2xl"
-              src={VideoClip}
-            />
+            <VideoPlayer className="mx-auto mt-10 max-w-2xl" src={VideoClip} />
 
-            <div className="sm:flex grid mt-20 justify-center  w-full gap-8">
+            <div className="mt-20 lg:mt-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 justify-center">
               <StepCard
-                title={"Paste YouTube Link"}
-                description={"Drop your link into SmartClip's input box."}
-                step={"Step 1"}
+                step="Step 1"
+                title="Provide the Link"
+                description="Simply paste the URL of any YouTube video you want to analyze into the designated field."
                 image={Image2}
               />
               <StepCard
-                title={"Set Time Range & Prompt"}
-                description={"Drop your link into SmartClip's input box."}
-                step={"Step 2"}
+                step="Step 2"
+                title="Define Your Focus"
+                description="Pinpoint the exact segment you're interested in by setting a time range and download."
                 image={Image}
               />
               <StepCard
-                title={"Download and Explanation"}
-                description={
-                  "Get your downloadable clip and an AI summary instantly."
-                }
-                step={"Step 3"}
-                image={Image}
+                step="Step 3"
+                title="Get Instant Insights"
+                description="Download your new, shorter clip and receive a clear, AI-generated explanation of its content."
+                image={Image3}
               />
             </div>
           </div>
