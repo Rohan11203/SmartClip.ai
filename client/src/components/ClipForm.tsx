@@ -82,12 +82,6 @@ const ClipForm = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [theme, setTheme] = useState('dark');
-
-  useEffect(() => {
-      setTheme(localStorage.getItem('theme') || 'dark');
-  }, []);
-
 
   async function handleSubmit() {
     setIsProcessing(true);
