@@ -1,4 +1,3 @@
-// src/services/videoService.ts
 import { spawn } from "child_process";
 import fs from "fs";
 import path from "path";
@@ -16,7 +15,8 @@ export async function downloadSection(
 
     const COOKIE_PATH = fs.existsSync("./cookies.txt") ? "./cookies.txt" : "";
 
-    console.log("Cookie path here", COOKIE_PATH);
+    console.log("Using cookies file:", COOKIE_PATH || "None");
+
     const args = [
       url,
       "-f",
@@ -31,13 +31,25 @@ export async function downloadSection(
       template,
       "--no-check-certificates",
       "--no-warnings",
+
+      // --- CHANGES START HERE ---
+
+      // 1. Clear cache directory. This prevents issues with stale session data.
+      "--rm-cache-dir",
+
+      // 2. Add a standard User-Agent. This makes the request look like it's from a real browser.
+      "--user-agent",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+
+      // --- CHANGES END HERE ---
+
       // only add cookies if present
       ...(COOKIE_PATH ? ["--cookies", COOKIE_PATH] : []),
       // verbose helps debug
       "--verbose",
     ];
 
-    console.log("args Log here", args);
+    console.log("Running yt-dlp with args:", args.join(" "));
     const proc = spawn("yt-dlp", args);
     let stdout = "";
     let stderr = "";
@@ -57,21 +69,43 @@ export async function downloadSection(
     );
     proc.on("close", (code) => {
       if (code !== 0) {
+        // --- IMPROVED ERROR HANDLING ---
+        if (stderr.includes("Sign in to confirm you’re not a bot")) {
+            return reject(new Error(
+                "YouTube is blocking the download (bot detection). " +
+                "This is common on servers and with proxies. " +
+                "The cookies.txt file may be invalid, expired, or not matching the server's IP address. " +
+                "Please try generating a fresh cookies.txt file and redeploying."
+            ));
+        }
+        if (stderr.includes("Video unavailable")) {
+             return reject(new Error("The requested video is unavailable. It may be private, deleted, or region-locked."));
+        }
+        // Generic fallback error for other issues
         return reject(
-          new Error(`yt-dlp exited ${code}
-${stderr}`)
+          new Error(`yt-dlp exited with code ${code}. Full error: ${stderr}`)
         );
       }
-      // parse the Destination line
-      const m = stdout.match(/\[download\] Destination: (.+)$/m);
-      if (m && fs.existsSync(m[1])) {
-        return resolve(m[1]);
+      
+      // The rest of your logic for finding the file remains the same.
+      const m = stdout.match(/\[Merger\] Merging formats into "([^"]+)"/m) || stdout.match(/\[download\] Destination: (.+)/m);
+      if (m && m[1]) {
+        const finalPath = m[1];
+        if (fs.existsSync(finalPath)) {
+            console.log("Successfully found downloaded file at:", finalPath);
+            return resolve(finalPath);
+        }
       }
-      // fallback: search uploadsDir
+      
+      // Fallback search if the primary parsing fails
       const base = path.basename(outputBase);
-      const found = fs.readdirSync(uploadsDir).find((f) => f.startsWith(base));
-      if (found) return resolve(path.join(uploadsDir, found));
-      reject(new Error("yt-dlp succeeded but no output file found."));
+      const found = fs.readdirSync(uploadsDir).find((f) => f.startsWith(base) && f.endsWith('.mp4'));
+      if (found) {
+        console.log("Found file via fallback search:", found);
+        return resolve(path.join(uploadsDir, found));
+      }
+
+      reject(new Error("yt-dlp seemed to succeed but the output file could not be found."));
     });
   });
 }
@@ -79,7 +113,6 @@ ${stderr}`)
 /**
  * Uses ffmpeg to re-encode (frame-accurate) the downloaded segment.
  */
-
 export async function clipWithFfmpeg(
   inputPath: string,
   start: string,
