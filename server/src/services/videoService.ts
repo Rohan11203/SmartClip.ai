@@ -32,8 +32,6 @@ export async function downloadSection(
       "--no-check-certificates",
       "--no-warnings",
 
-      // --- CHANGES START HERE ---
-
       // 1. Force IPv4. Sometimes helps bypass stricter IPv6 checks on servers.
       "--force-ipv4",
 
@@ -46,8 +44,6 @@ export async function downloadSection(
       
       // 4. Don't set the file modification time from the server response.
       "--no-mtime",
-
-      // --- CHANGES END HERE ---
 
       // only add cookies if present
       ...(COOKIE_PATH ? ["--cookies", COOKIE_PATH] : []),
