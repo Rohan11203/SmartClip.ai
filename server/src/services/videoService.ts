@@ -34,12 +34,18 @@ export async function downloadSection(
 
       // --- CHANGES START HERE ---
 
-      // 1. Clear cache directory. This prevents issues with stale session data.
+      // 1. Force IPv4. Sometimes helps bypass stricter IPv6 checks on servers.
+      "--force-ipv4",
+
+      // 2. Clear cache directory. This prevents issues with stale session data.
       "--rm-cache-dir",
 
-      // 2. Add a standard User-Agent. This makes the request look like it's from a real browser.
+      // 3. Add a standard User-Agent. This makes the request look like it's from a real browser.
       "--user-agent",
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+      
+      // 4. Don't set the file modification time from the server response.
+      "--no-mtime",
 
       // --- CHANGES END HERE ---
 
