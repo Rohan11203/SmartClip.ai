@@ -1,15 +1,14 @@
-// src/hooks/useVideoProcessing.js
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
 
 const STEPS = [
-  "Extracting audio…",
-  "Transcoding video…",
-  "Muxing streams…",
-  "Optimizing bitrate…",
-  "Finalizing…"
+  "Preparing your request…",
+  "Downloading the video section…",
+  "Creating your high-quality clip…",
+  "Assembling final video file…",
+  "Finalizing your download…",
 ];
 
-export function useVideoProcessing(isActive:boolean) {
+export function useVideoProcessing(isActive: boolean) {
   const [index, setIndex] = useState(0);
   const [done, setDone] = useState(false);
   const prevActive = useRef(isActive);
@@ -25,7 +24,7 @@ export function useVideoProcessing(isActive:boolean) {
     if (!isActive) return;
 
     const interval = setInterval(() => {
-      setIndex(i => {
+      setIndex((i) => {
         if (i + 1 >= STEPS.length) {
           clearInterval(interval);
           setDone(true);
@@ -33,7 +32,7 @@ export function useVideoProcessing(isActive:boolean) {
         }
         return i + 1;
       });
-    }, 7000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, [isActive]);
@@ -41,6 +40,6 @@ export function useVideoProcessing(isActive:boolean) {
   return {
     currentStep: STEPS[index],
     progress: Math.round(((index + 1) / STEPS.length) * 100),
-    done
+    done,
   };
 }
