@@ -1,22 +1,18 @@
 import { Request, Response } from "express";
 import path from "path";
 import fs from "fs";
+import os from "os";
 import { promisify } from "util";
-import { downloadSection, clipWithFfmpeg } from "../services/videoService";
-import cloudinary from "../config/cloudinary";
-import { VideoModel } from "../DB";
+import { createClip } from "../services/videoService";
 import { UploadToCloudinary } from "../services/CloudinaryUpload";
+
 const unlinkAsync = promisify(fs.unlink);
-const uploadsDir = path.join(__dirname, "../../uploads");
+const uploadsDir = os.tmpdir();
 
 export async function ClipVideo(req: any, res: any) {
-  // console.log((req.user as any).sub);
-  console.log(req.user._id)
-
-  // const userId = (req.user as any).sub;
-
   const userId = req.user._id;
-  console.log("Clip Video Request:", req.body);
+  console.log("Clip Video Request for user:", userId, req.body);
+
   const { url, startTime, endTime } = req.body as {
     url: string;
     startTime: string;
@@ -24,50 +20,52 @@ export async function ClipVideo(req: any, res: any) {
   };
 
   if (!url || !startTime || !endTime) {
-    return res.status(400).json({ error: "url, startTime, endTime required" });
+    return res
+      .status(400)
+      .json({ error: "url, startTime, and endTime are required" });
   }
 
-  const ts = Date.now();
-  const base = path.join(uploadsDir, `temp-${ts}`);
-  const final = path.join(uploadsDir, `clip-${ts}.mp4`);
+  const finalClipPath = path.join(uploadsDir, `clip-${Date.now()}.mp4`);
 
   try {
-    console.log(`Downloading section from ${url}: ${startTime} to ${endTime}`);
-    const downloaded = await downloadSection(
-      url,
-      startTime,
-      endTime,
-      base,
-      uploadsDir
-    );
-    console.log(`Downloaded file: ${downloaded}`);
-
     const toSec = (hms: string) => {
-      const [h = 0, m = 0, s = 0] = hms.split(":").map(Number);
+      const parts = hms.split(":").map(Number);
+      const h = parts[0] || 0;
+      const m = parts[1] || 0;
+      const s = parts[2] || 0;
       return h * 3600 + m * 60 + s;
     };
 
     const durationSec = toSec(endTime) - toSec(startTime);
-    if (durationSec <= 0) throw new Error("endTime must be after startTime");
+    if (durationSec <= 0) {
+      throw new Error("End time must be after start time.");
+    }
 
-    console.log(`Clipping video: start=${startTime}, duration=${durationSec}`);
-    await clipWithFfmpeg(downloaded, startTime, `${durationSec}`, final);
+    console.log(
+      `Creating clip from ${url}: start=${startTime}, duration=${durationSec}s`
+    );
 
-    console.log(`Final clip created: ${final}`);
-    // res.download(final, "clip.mp4");
+    await createClip(url, startTime, `${durationSec}`, finalClipPath);
 
-    // Uploading to Cloudinary and storing to DB
-    await UploadToCloudinary(final, userId);
+    console.log(`Final clip created: ${finalClipPath}`);
 
-    res.download(final, "clip.mp4", async () => {
-      await unlinkAsync(final).catch(() => {});
-      await unlinkAsync(downloaded).catch(() => {});
+    // Upload to Cloudinary
+    await UploadToCloudinary(finalClipPath, userId);
+
+    // Send the file to the user and clean up afterward
+    res.download(finalClipPath, "clip.mp4", async (err: any) => {
+      if (err) {
+        console.error("Error sending file to user:", err);
+      }
+      // The final clip is the only file that needs to be deleted here
+      await unlinkAsync(finalClipPath).catch((e) =>
+        console.error("Failed to clean up final clip:", e)
+      );
     });
   } catch (err) {
     console.error("ClipVideo error:", err);
     res.status(500).json({
       error: (err as Error).message,
-      stack: (err as Error).stack,
     });
   }
 }
