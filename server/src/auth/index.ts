@@ -2,8 +2,6 @@ import { NextFunction, Request, Response, RequestHandler } from "express";
 import jwt, { decode, JwtPayload } from "jsonwebtoken";
 
 export function Userauth(req: any, res: any, next: NextFunction) {
-  // const authHeader = req.headers.authorization;
-  // const token = authHeader?.startsWith("Bearer ") ? authHeader.slice(7) : null;
 
   const JWT_SECRET = process.env.JWT_SECRET!;
 
@@ -15,21 +13,21 @@ export function Userauth(req: any, res: any, next: NextFunction) {
       }
 
       // req.user = decoded as JwtPayload;
-       req.user = {
+      req.user = {
         _id: decoded.sub || decoded.id, // support both sub or id fields
         email: decoded.email,
         source: "jwt",
       };
       next();
     });
-  }else if(req.user){
+  } else if (req.user) {
     req.user = {
       _id: req.user._id,
       email: req.user.email,
       source: "google",
     };
     next();
-  }else{
+  } else {
     return res.status(401).json({ message: "Unauthorized" });
   }
 }
