@@ -39,7 +39,7 @@ const HeroSection = () => {
               className=" outline-none dark:text-grey-100 shadow-md h-12 w-full sm:w-86 p-4 bg-white dark:bg-[#121212]  rounded-4xl"
             />
           </div>
-          <button className="bg-orange-500  text-white h-12 sm:w-30 w-full rounded-4xl cursor-pointer hover:bg-orange-400 transition duration-300">
+          <button className="bg-orange-500  text-white h-12 sm:w-30 w-full rounded-4xl cursor-pointer hover:bg-orange-600 transition duration-300">
             <Link to={"clipVideos"} className=" ">
               Get Started
             </Link>
