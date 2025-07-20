@@ -150,7 +150,7 @@ const Navbar = () => {
                 onClick={() => navigate("/clipVideos")}
                 className="sm:block hidden text-center bg-orange-500 cursor-pointer text-white px-4 py-2 w-full rounded-4xl font-semibold  hover:bg-orange-400 transition duration-300"
               >
-                Clip now
+                Clip Now
               </button>
             ) : (
               <button
@@ -268,7 +268,7 @@ const Navbar = () => {
                   onClick={() => navigate("/clipVideos")}
                   className="block text-center bg-orange-500  text-white px-4 py-2 w-full rounded-4xl font-semibold"
                 >
-                  Chat
+                  Clip now
                 </button>
               ) : (
                 <button

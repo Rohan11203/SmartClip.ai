@@ -19,7 +19,7 @@ export const Footer = () => {
             get a GPT-generated explanation of that section, and download the clipped video.
           </p>
           <a
-            href="#join-beta"
+            href="/clipVideos"
             className="inline-block bg-orange-600 hover:bg-amber-500  text-white font-medium py-2 px-4 rounded-lg transition  duration-300"
           >
             Explore Now
