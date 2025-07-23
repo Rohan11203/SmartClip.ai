@@ -105,41 +105,41 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed  top-2 left-0 right-0 z-50  max-w-5xl mx-auto px-4">
-        <div className="bg-white dark:bg-[#121212] spectral-bold flex items-center justify-between p-2 py-3 m-4 rounded-4xl px-6 shadow-lg">
+      <nav className="fixed  top-2 left-0 right-0 z-50   max-w-5xl  mx-auto px-4">
+        <div className="bg-orange-50/40  rounded-2xl  dark:bg-black/40 backdrop-blur-lg     spectral-bold flex items-center justify-between p-2 py-3 md:m-4 m-0 md:rounded-4xl  px-6">
           <HashLink
             smooth
             to="#top"
-            className="text-xl font-semibold dark:text-white"
+            className="text-xl font-semibold dark:text-gray-300"
           >
             Smart<span className="text-orange-500">Clip</span>
           </HashLink>
-          <div className="hidden md:flex gap-6 dark:text-white">
+          <div className="hidden md:flex gap-6 dark:text-gray-400">
             <HashLink
               smooth
               to="#about"
-              className="cursor-pointer hover:text-amber-500 transition duration-300"
+              className="cursor-pointer hover:text-amber-500 dark:hover:text-gray-100 transition duration-300"
             >
               About
             </HashLink>
             <HashLink
               smooth
               to="#value"
-              className="cursor-pointer hover:text-amber-500 transition duration-300"
+              className="cursor-pointer hover:text-amber-500 dark:hover:text-gray-100 transition duration-300"
             >
               Value
             </HashLink>
             <HashLink
               smooth
               to="#about"
-              className="cursor-pointer hover:text-amber-500 transition duration-300"
+              className="cursor-pointer hover:text-amber-500 dark:hover:text-gray-100 transition duration-300"
             >
               Projects
             </HashLink>
             <HashLink
               smooth
               to="#contact"
-              className="cursor-pointer hover:text-amber-500 transition duration-300"
+              className="cursor-pointer hover:text-amber-500 dark:hover:text-gray-100 transition duration-300"
             >
               Contact
             </HashLink>
@@ -162,7 +162,7 @@ const Navbar = () => {
             )}
             <button
               onClick={toggleDarkMode}
-              className="ml-4 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+              className="ml-4 p-2 rounded-md  cursor-pointer"
             >
               {darkMode ? (
                 <svg
@@ -198,7 +198,7 @@ const Navbar = () => {
             </button>
             <button
               onClick={toggleMobileMenu}
-              className="md:hidden p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="md:hidden p-2 rounded-md "
             >
               {/* Hamburger / Close icon */}
               {mobileMenuOpen ? (
@@ -237,7 +237,7 @@ const Navbar = () => {
         </div>
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="mt-2 bg-white dark:bg-[#121212] rounded-2xl shadow-lg p-4 space-y-4 max-w-5xl mx-auto">
+          <div className="mt-2 bg-white/50 dark:bg-black/50 backdrop-blur-lg rounded-2xl shadow-lg p-4 space-y-4 max-w-5xl mx-auto">
             <a
               href="#about"
               className="block text-gray-700 dark:text-gray-200 hover:underline"
