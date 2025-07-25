@@ -153,3 +153,21 @@ html.lenis body{
 .lenis.lenis-smooth iframe{
   pointer-events: none;
 }
+
+
+/* SpotLigt */
+/* In index.css */
+
+@keyframes spotlight {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.21;
+  }
+}
+
+.animate-spotlight {
+  /* No opacity property here */
+  animation: spotlight 2s 0.7s forwards;
+}

@@ -20,7 +20,7 @@ const LandingPage = () => {
     requestAnimationFrame(raf);
   }, []);
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden">
+    <div className="relative min-h-screen w-full overflow-x-hidden dark:bg-black">
       {/* LEFT SIDE SHAPE */}
       <div className="absolute  top-0 left-0 h-[100vh] md:h-[150vh] lg:h-[180vh] w-[12vw] z-10 dark:hidden">
         <svg

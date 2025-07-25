@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import AuthModal from "./AuthModal";
 import { onSignin, onSignup } from "@/api";
+import { Clapperboard, Github, Link, Menu, Moon, Sun, X } from "lucide-react";
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -60,7 +61,8 @@ const Navbar = () => {
   async function handleGoogle() {
     try {
       setGoogleLoding(true);
-      window.location.href = "https://smartclip-ai.onrender.com/api/v1/users/google";
+      window.location.href =
+        "https://smartclip-ai.onrender.com/api/v1/users/google";
       localStorage.setItem("isAuth", "true");
     } catch (error) {
       console.error("Google Login Error : ", error);
@@ -102,182 +104,133 @@ const Navbar = () => {
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
-
+  const navLinkClasses =
+    "text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-white transition-colors duration-300";
+  const iconButtonClasses =
+    "";
   return (
     <>
-      <nav className="fixed  top-2 left-0 right-0 z-50   max-w-5xl  mx-auto px-4">
-        <div className="bg-orange-50/40  rounded-2xl  dark:bg-black/40 backdrop-blur-lg     spectral-bold flex items-center justify-between p-2 py-3 md:m-4 m-0 md:rounded-4xl  px-6">
-          <HashLink
-            smooth
-            to="#top"
-            className="text-xl font-semibold dark:text-gray-300"
-          >
-            Smart<span className="text-orange-500">Clip</span>
-          </HashLink>
-          <div className="hidden md:flex gap-6 dark:text-gray-400">
-            <HashLink
-              smooth
-              to="#about"
-              className="cursor-pointer hover:text-amber-500 dark:hover:text-gray-100 transition duration-300"
-            >
-              About
-            </HashLink>
-            <HashLink
-              smooth
-              to="#value"
-              className="cursor-pointer hover:text-amber-500 dark:hover:text-gray-100 transition duration-300"
-            >
-              Value
-            </HashLink>
-            <HashLink
-              smooth
-              to="#about"
-              className="cursor-pointer hover:text-amber-500 dark:hover:text-gray-100 transition duration-300"
-            >
-              Projects
-            </HashLink>
-            <HashLink
-              smooth
-              to="#contact"
-              className="cursor-pointer hover:text-amber-500 dark:hover:text-gray-100 transition duration-300"
-            >
-              Contact
-            </HashLink>
-          </div>
-          <div className="flex items-center">
-            {isAuth === "true" ? (
-              <button
-                onClick={() => navigate("/clipVideos")}
-                className="sm:block hidden text-center bg-orange-500 cursor-pointer text-white px-4 py-2 w-full rounded-4xl font-semibold  hover:bg-orange-600 transition duration-300"
-              >
-                Clip Now
-              </button>
-            ) : (
-              <button
-                onClick={() => setOpen(true)}
-                className="sm:block hidden text-center cursor-pointer bg-orange-500 text-white px-4 py-2 w-full rounded-4xl font-semibold hover:bg-orange-400 transition duration-300"
-              >
-                Login Now
-              </button>
-            )}
-            <button
-              onClick={toggleDarkMode}
-              className="ml-4 p-2 rounded-md  cursor-pointer"
-            >
-              {darkMode ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+      <nav className="fixed font-semibold z-10 w-full bg-white/30 dark:bg-black/80 backdrop-blur-lg  dark:border-gray-800">
+        <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center gap-14">
+              <HashLink smooth to="#top" className="flex items-center gap-2">
+                <Clapperboard className="h-8 w-8 text-orange-500" />
+                <span className="text-2xl text-slate-800 dark:text-white font-bold">
+                  Smart<span className="text-orange-500">Clip</span>
+                </span>
+              </HashLink>
+              <div className="hidden md:flex items-center gap-8">
+                <HashLink smooth to="#features" className={navLinkClasses}>
+                  Features
+                </HashLink>
+                <HashLink smooth to="#about" className={navLinkClasses}>
+                  About
+                </HashLink>
+                <HashLink smooth to="#value" className={navLinkClasses}>
+                  Value
+                </HashLink>
+                <HashLink smooth to="#contact" className={navLinkClasses}>
+                  Contact
+                </HashLink>
+                
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2">
+                <a
+                  href="https://github.com/Rohan11203/SmartClip.ai/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2  cursor-pointer"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                  <Github
+                    size={20}
+                    className="text-gray-600 dark:text-gray-300"
                   />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+                </a>
+                <button  onClick={toggleDarkMode} className="p-2   cursor-pointer">
+                  {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+                </button>
+                {isAuth === "true" ? (
+                  <button
+                    onClick={() => navigate("/clipVideos")}
+                    className="hidden md:block bg-orange-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-orange-600 transition-colors duration-300 cursor-pointer"
+                  >
+                    Try Now
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setOpen(true)}
+                    className="hidden md:block bg-orange-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-orange-700 cursor-pointer transition-colors duration-300"
+                  >
+                    Login
+                  </button>
+                )}
+              </div>
+              <div className="md:hidden">
+                <button
+                  onClick={toggleMobileMenu}
+                  className="p-2  cursor-pointer"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                  />
-                </svg>
-              )}
-            </button>
-            <button
-              onClick={toggleMobileMenu}
-              className="md:hidden p-2 rounded-md "
-            >
-              {/* Hamburger / Close icon */}
-              {mobileMenuOpen ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6  dark:text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 cursor-pointer dark:text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              )}
-            </button>
+                  {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-        {/* Mobile Menu */}
+
         {mobileMenuOpen && (
-          <div className="mt-2 bg-white/50 dark:bg-black/50 backdrop-blur-lg rounded-2xl shadow-lg p-4 space-y-4 max-w-5xl mx-auto">
-            <a
-              href="#about"
-              className="block text-gray-700 dark:text-gray-200 hover:underline"
-            >
-              About
-            </a>
-            <a
-              href="#value"
-              className="block text-gray-700 dark:text-gray-200 hover:underline"
-            >
-              Value
-            </a>
-            <a
-              href="#projects"
-              className="block text-gray-700 dark:text-gray-200 hover:underline"
-            >
-              Projects
-            </a>
-            <a
-              href="#contact"
-              className="block text-gray-700 dark:text-gray-200 hover:underline"
-            >
-              Contact
-            </a>
-            <div className="mt-4">
-              {isAuth === "true" ? (
-                <button
-                  onClick={() => navigate("/clipVideos")}
-                  className="block text-center bg-orange-500  text-white px-4 py-2 w-full rounded-4xl font-semibold"
-                >
-                  Clip now
-                </button>
-              ) : (
-                <button
-                  onClick={() => setOpen(true)}
-                  className="block text-center bg-orange-500 text-white px-4 py-2 w-full rounded-4xl font-semibold"
-                >
-                  Login Now
-                </button>
-              )}
+          <div className="md:hidden absolute top-full left-0 w-full bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800">
+            <div className="px-4 pt-2 pb-4 space-y-3">
+              <HashLink
+                smooth
+                to="#contact"
+                className="block text-center py-2"
+                onClick={toggleMobileMenu}
+              >
+                Contact
+              </HashLink>
+              <HashLink
+                smooth
+                to="#about"
+                className="block text-center py-2"
+                onClick={toggleMobileMenu}
+              >
+                About
+              </HashLink>
+              <a
+                href="https://github.com/your-repo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 text-center py-2"
+              >
+                <Github size={20} /> GitHub
+              </a>
+              <div className="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
+                {isAuth === "true" ? (
+                  <button
+                    onClick={() => {
+                      navigate("/clipVideos");
+                      toggleMobileMenu();
+                    }}
+                    className="w-full bg-orange-500 text-white font-bold py-3 rounded-lg"
+                  >
+                    Try Now
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setOpen(true);
+                      toggleMobileMenu();
+                    }}
+                    className="w-full bg-orange-500 text-white font-bold py-3 rounded-lg"
+                  >
+                    Login
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         )}

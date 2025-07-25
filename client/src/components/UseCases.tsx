@@ -24,7 +24,7 @@ export default function UseCases() {
   ];
 
   return (
-    <section id="value" className="py-20 bg-orange-50 text-orange-900 dark:text-white dark:bg-[#050505] ">
+    <section id="value" className="py-20 font-mono bg-orange-50 text-orange-900 dark:text-white dark:bg-[#050505] ">
       <div className="max-w-6xl mx-auto px-4 text-center">
         <h2 className="text-4xl font-bold mb-16 ">Why Use SmartClip?</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
