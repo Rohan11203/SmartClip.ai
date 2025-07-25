@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import AuthModal from "./AuthModal";
 import { onSignin, onSignup } from "@/api";
-import { Clapperboard, Github, Link, Menu, Moon, Sun, X } from "lucide-react";
+import { Clapperboard, Github, Menu, Moon, Sun, X } from "lucide-react";
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -106,8 +106,7 @@ const Navbar = () => {
   };
   const navLinkClasses =
     "text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-white transition-colors duration-300";
-  const iconButtonClasses =
-    "";
+
   return (
     <>
       <nav className="fixed font-semibold z-10 w-full bg-white/30 dark:bg-black/80 backdrop-blur-lg  dark:border-gray-800">
