@@ -45,7 +45,7 @@ const MainPage = () => {
     setExplanation("");
     try {
       const response = await axios.post(
-        "https://smartclip-ai.onrender.com/api/v1/video/explain",
+        "https://smartclip.duckdns.org/api/v1/video/explain",
         { prompt, videoId }
       );
       if (response.data?.error) {

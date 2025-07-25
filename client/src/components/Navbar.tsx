@@ -62,7 +62,7 @@ const Navbar = () => {
     try {
       setGoogleLoding(true);
       window.location.href =
-        "https://smartclip-ai.onrender.com/api/v1/users/google";
+        "https://smartclip.duckdns.org/api/v1/users/google";
       localStorage.setItem("isAuth", "true");
     } catch (error) {
       console.error("Google Login Error : ", error);

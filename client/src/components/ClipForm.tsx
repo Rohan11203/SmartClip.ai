@@ -117,7 +117,7 @@ const ClipForm = () => {
     setIsOpen(true);
     try {
       const response = await axios.post(
-        "https://smartclip-ai.onrender.com/api/v1/videos/clip",
+        "https://smartclip.duckdns.org/api/v1/videos/clip",
         data,
         { responseType: "blob" }
       );

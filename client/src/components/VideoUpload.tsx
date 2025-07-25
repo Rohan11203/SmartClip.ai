@@ -27,7 +27,7 @@ const VideoUpload = ({ onUploadSuccess }:any) => {
 
     try {
       const res = await axios.post(
-        "https://smartclip-ai.onrender.com/api/v1/video/upload",
+        "https://smartclip.duckdns.org/api/v1/video/upload",
         formData,
         {
           headers: {
