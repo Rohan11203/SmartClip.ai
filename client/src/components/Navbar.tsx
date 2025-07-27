@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import AuthModal from "./AuthModal";
-import { onSignin, onSignup } from "@/api";
+import { BACKEND_URL, onSignin, onSignup } from "@/api";
 import { Clapperboard, Github, Menu, Moon, Sun, X } from "lucide-react";
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -62,7 +62,7 @@ const Navbar = () => {
     try {
       setGoogleLoding(true);
       window.location.href =
-        "https://smartclip.duckdns.org/api/v1/users/google";
+        `${BACKEND_URL}/api/v1/users/google`;
       localStorage.setItem("isAuth", "true");
     } catch (error) {
       console.error("Google Login Error : ", error);
