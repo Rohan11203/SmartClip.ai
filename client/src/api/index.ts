@@ -1,7 +1,7 @@
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
-export const BACKEND_URL = "https://smartclip-ai.onrender.com"
+export const BACKEND_URL = "https://smartclip.duckdns.org"
 interface AuthDataInterface{
     username?: string;
     email: string;

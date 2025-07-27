@@ -24,7 +24,7 @@ UserRouter.get(
     session: true
   }),
   (req: any, res: any) => {
-    res.redirect("https://smartclip-ai1.onrender.com/clipVideos");
+    res.redirect("https://smartclip-chi.vercel.app/clipVideos");
   }
 );
 
