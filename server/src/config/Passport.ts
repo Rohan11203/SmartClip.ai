@@ -10,7 +10,8 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      callbackURL: "https://smartclip.duckdns.org/api/v1/users/google/redirect/callback",
+      callbackURL:
+        "https://smartclip.duckdns.org/api/v1/users/google/redirect/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       const user = await UserModel.findOne({ googleId: profile.id });
@@ -33,9 +34,9 @@ passport.use(
   )
 );
 
-passport.serializeUser((user:any,done) => {
-    done(null,user._id)
-})
+passport.serializeUser((user: any, done) => {
+  done(null, user._id);
+});
 
 passport.deserializeUser(async (id, done) => {
   const user = await UserModel.findById(id);

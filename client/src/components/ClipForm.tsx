@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Clock, Link as LinkIcon } from "lucide-react";
 import { useVideoProcessing } from "@/hooks/useVideoProcessing";
+import { BACKEND_URL } from "@/api";
 
 const TimeInput = ({ value, onChange, name }: any) => {
   const [time, setTime] = useState({ h: "00", m: "00", s: "00" });
@@ -117,7 +118,7 @@ const ClipForm = () => {
     setIsOpen(true);
     try {
       const response = await axios.post(
-        "https://smartclip.duckdns.org/api/v1/videos/clip",
+        `${BACKEND_URL}/api/v1/videos/clip`,
         data,
         { responseType: "blob" }
       );

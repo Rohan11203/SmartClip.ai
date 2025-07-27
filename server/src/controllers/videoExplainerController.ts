@@ -3,7 +3,7 @@ import { AssemblyAI } from "assemblyai";
 import { VideoModel } from "../DB";
 
 export async function videoExplainer(req: any, res: any) {
-  const { prompt, videoId } = req.body;
+  const { prompt, videoUrl } = req.body;
 
   if (!prompt) {
     return res.status(400).json({
@@ -15,8 +15,8 @@ export async function videoExplainer(req: any, res: any) {
   try {
     let transcriptText: string | null = null;
     
-    if (videoId) {
-      transcriptText = await getTranscriptForVideo(videoId);
+    if (videoUrl) {
+      transcriptText = await getTranscriptForVideo(videoUrl);
     }
 
     // The function now intelligently handles requests with or without video context.
@@ -38,11 +38,10 @@ export async function videoExplainer(req: any, res: any) {
 
 
 // This function isolates the logic for fetching and transcribing the video.
-async function getTranscriptForVideo(videoId: string): Promise<string | null> {
+async function getTranscriptForVideo(videoUrl: string): Promise<string | null> {
   try {
-    const video = await VideoModel.findById(videoId).select("url");
-    if (!video || !video.url) {
-      console.warn(`Video not found or has no URL for ID: ${videoId}`);
+    if ( !videoUrl) {
+      console.warn(`Video not found or : ${videoUrl}`);
       return null; 
     }
 
@@ -50,16 +49,16 @@ async function getTranscriptForVideo(videoId: string): Promise<string | null> {
       apiKey: process.env.ASSEMBLYAI_API_KEY!,
     });
 
-    const transcript = await client.transcripts.transcribe({ audio: video.url });
+    const transcript = await client.transcripts.transcribe({ audio: videoUrl });
 
     if (!transcript.text) {
-        console.warn(`Transcription for video ID ${videoId} resulted in empty text.`);
+        console.warn(`Transcription for video ID ${videoUrl} resulted in empty text.`);
     }
 
     return transcript.text || null;
 
   } catch (dbError) {
-    console.error(`Failed to retrieve or transcribe video for ID ${videoId}:`, dbError);
+    console.error(`Failed to retrieve or transcribe video for url ${videoUrl}:`, dbError);
     throw new Error("Failed to process the video transcript.");
   }
 }

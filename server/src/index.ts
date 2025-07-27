@@ -22,7 +22,7 @@ const MongoUrl1 = process.env.MongoUrl!;
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://smartclip-ai1.onrender.com"], // frontend urls
+    origin: ["http://localhost:5173", "https://smartclip-ai1.onrender.com", "https://smartclip-chi.vercel.app"], // frontend urls
     credentials: true, // allow cookie headers
   })
 );
