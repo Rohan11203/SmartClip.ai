@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 import Image from "@/assets/clip.png";
 import Image2 from "@/assets/ytSearch.webp";
 import Image3 from "@/assets/download.png";
-import VideoPlayer from "./VideoPresent";
-import VideoClip from "@/assets/smartClip.mp4";
 
 const Steps = () => {
   return (
@@ -17,7 +15,7 @@ const Steps = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="relative"
       >
-        <div className="pt-30  py-20  max-w-6xl mx-auto px-4 ">
+        <div className="sm:pt-30 pt-8  py-20  max-w-6xl mx-auto px-4 ">
           <div className="pb-8">
             <div className="flex justify-center">
               <h1 className=" dark:text-white sm:text-6xl font-mono text-2xl text-slate-700">
@@ -25,9 +23,8 @@ const Steps = () => {
               </h1>
             </div>
 
-            <VideoPlayer className="mx-auto mt-10 max-w-2xl" src={VideoClip} />
 
-            <div className="mt-20 font-semibold lg:mt-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 justify-center">
+            <div className="sm:mt-20 mt-8 font-semibold lg:mt-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 justify-center">
               <StepCard
                 step="Step 1"
                 title="Provide the Link"

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import Features from "./ui/Features";
 import { motion } from "framer-motion";
-
+import VideoPlayer from "./VideoPresent";
+import smartclipVid from "@/assets/smartclipVid.mp4";
 const HeroSection = () => {
   return (
     <motion.div
@@ -97,6 +98,10 @@ const HeroSection = () => {
         </div>
 
         <Features />
+
+        <div className=" mt-14  animated-gradient-border rounded-2xl">
+          <VideoPlayer className="" src={smartclipVid} />
+        </div>
       </div>
     </motion.div>
   );

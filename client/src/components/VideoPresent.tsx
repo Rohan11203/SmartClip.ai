@@ -1,6 +1,6 @@
 const VideoPlayer = ({ src, className = "" }: any) => (
   <div
-    className={`max-w-2xl mx-auto p-4  rounded-lg ${className}`}
+    className={`max-w-7xl mx-auto p-2  rounded-2xl ${className}`}
   >
     <video
       src={src}
@@ -8,7 +8,7 @@ const VideoPlayer = ({ src, className = "" }: any) => (
       autoPlay
       muted
       playsInline
-      className="w-full h-auto rounded shadow-md outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-300"
+      className="w-full h-auto rounded shadow-md outline-none"
     />
   </div>
 );

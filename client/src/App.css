@@ -15,3 +15,48 @@ body {
 .spectral {
   font-family: "Spectral", serif;
 }
+
+
+/*
+  First, define your background colors for light and dark themes.
+  This ensures the border looks great in both modes.
+*/
+:root {
+  --content-bg: white;
+}
+
+.dark {
+  --content-bg: #030712;
+}
+
+
+.animated-gradient-border {
+  border-radius: 1.25rem; 
+  padding: 3px; 
+  background: linear-gradient(90deg, #0ea5e9, #facc15, #0ea5e9, #f97316);
+  background-size: 200% 200%;
+  animation: move-gradient 4s linear infinite;
+}
+
+.animated-gradient-border > div {
+  background-color: var(--content-bg);
+  border-radius: 1rem; 
+}
+
+
+@keyframes move-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.inner-glow {
+  box-shadow: inset 0 0 15px 0 #0ea5e9;
+  border-radius: 1rem; 
+}
