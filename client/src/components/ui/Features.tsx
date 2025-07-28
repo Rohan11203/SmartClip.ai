@@ -13,8 +13,6 @@ const Features = () => {
 
   return (
     <>
-      {/* The keyframes for the infinite scroll animation.
-       */}
       <style>{`
         @keyframes infinite-scroll {
           from { transform: translateX(0); }
@@ -25,9 +23,8 @@ const Features = () => {
       <div className=" text-center">
        
 
-        <div className="w-full sm:pt-8 pt-14 inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
-          <ul className="flex items-center justify-center md:justify-start [&_li]:mx-4 animate-[infinite-scroll_40s_linear_infinite]">
-            {/* Render the list twice for a seamless loop */}
+        <div className=" pt-16 inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+          <ul className="flex w-max-5xl mx-auto items-center justify-center md:justify-start [&_li]:mx-4 animate-[infinite-scroll_40s_linear_infinite]">
             {features.map((feature, idx) => (
               <li
                 key={idx}
