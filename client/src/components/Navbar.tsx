@@ -4,6 +4,7 @@ import { HashLink } from "react-router-hash-link";
 import AuthModal from "./AuthModal";
 import { BACKEND_URL, onSignin, onSignup } from "@/api";
 import { Clapperboard, Github, Menu, Moon, Sun, X } from "lucide-react";
+import { AnimatePresence,motion } from "framer-motion";
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -13,6 +14,13 @@ const Navbar = () => {
   const [googleLoading, setGoogleLoding] = useState(false);
   const navigate = useNavigate();
   const isAuth = localStorage.getItem("isAuth");
+
+    const menuVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.1 } },
+    exit: { opacity: 0, y: -20 }
+  };
+
 
   async function handleSubmit(mode: any, { username, email, password }: any) {
     if (mode === "signup") {
@@ -61,8 +69,7 @@ const Navbar = () => {
   async function handleGoogle() {
     try {
       setGoogleLoding(true);
-      window.location.href =
-        `${BACKEND_URL}/api/v1/users/google`;
+      window.location.href = `${BACKEND_URL}/api/v1/users/google`;
       localStorage.setItem("isAuth", "true");
     } catch (error) {
       console.error("Google Login Error : ", error);
@@ -71,9 +78,7 @@ const Navbar = () => {
     }
   }
 
-  // Check for system preference on component mount
   useEffect(() => {
-    // Check localStorage first
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") {
       setDarkMode(true);
@@ -82,13 +87,11 @@ const Navbar = () => {
       setDarkMode(false);
       document.documentElement.classList.remove("dark");
     } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      // If no saved preference, check system preference
       setDarkMode(true);
       document.documentElement.classList.add("dark");
     }
   }, []);
 
-  // Toggle dark mode
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
     if (!darkMode) {
@@ -132,7 +135,6 @@ const Navbar = () => {
                 <HashLink smooth to="#contact" className={navLinkClasses}>
                   Contact
                 </HashLink>
-                
               </div>
             </div>
 
@@ -149,7 +151,10 @@ const Navbar = () => {
                     className="text-gray-600 dark:text-gray-300"
                   />
                 </a>
-                <button  onClick={toggleDarkMode} className="p-2   cursor-pointer">
+                <button
+                  onClick={toggleDarkMode}
+                  className="p-2   cursor-pointer"
+                >
                   {darkMode ? <Sun size={20} /> : <Moon size={20} />}
                 </button>
                 {isAuth === "true" ? (
@@ -181,57 +186,64 @@ const Navbar = () => {
         </div>
 
         {mobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800">
-            <div className="px-4 pt-2 pb-4 space-y-3">
-              <HashLink
-                smooth
-                to="#contact"
-                className="block text-center py-2"
-                onClick={toggleMobileMenu}
-              >
-                Contact
-              </HashLink>
-              <HashLink
-                smooth
-                to="#about"
-                className="block text-center py-2"
-                onClick={toggleMobileMenu}
-              >
-                About
-              </HashLink>
-              <a
-                href="https://github.com/your-repo"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 text-center py-2"
-              >
-                <Github size={20} /> GitHub
-              </a>
-              <div className="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
-                {isAuth === "true" ? (
-                  <button
-                    onClick={() => {
-                      navigate("/clipVideos");
-                      toggleMobileMenu();
-                    }}
-                    className="w-full bg-orange-500 text-white font-bold py-3 rounded-lg"
-                  >
-                    Try Now
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => {
-                      setOpen(true);
-                      toggleMobileMenu();
-                    }}
-                    className="w-full bg-orange-500 text-white font-bold py-3 rounded-lg"
-                  >
-                    Login
-                  </button>
-                )}
+          <AnimatePresence>
+            <motion.div 
+            variants={menuVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="md:hidden absolute top-full left-0 w-full bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800">
+              <div className="px-4 pt-2 pb-4 space-y-3">
+                <HashLink
+                  smooth
+                  to="#contact"
+                  className="block text-center py-2"
+                  onClick={toggleMobileMenu}
+                >
+                  Contact
+                </HashLink>
+                <HashLink
+                  smooth
+                  to="#about"
+                  className="block text-center py-2"
+                  onClick={toggleMobileMenu}
+                >
+                  About
+                </HashLink>
+                <a
+                  href="https://github.com/your-repo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 text-center py-2"
+                >
+                  <Github size={20} /> GitHub
+                </a>
+                <div className="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
+                  {isAuth === "true" ? (
+                    <button
+                      onClick={() => {
+                        navigate("/clipVideos");
+                        toggleMobileMenu();
+                      }}
+                      className="w-full bg-orange-500 text-white font-bold py-3 rounded-lg"
+                    >
+                      Try Now
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        setOpen(true);
+                        toggleMobileMenu();
+                      }}
+                      className="w-full bg-orange-500 text-white font-bold py-3 rounded-lg"
+                    >
+                      Login
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </AnimatePresence>
         )}
       </nav>
       <AuthModal
