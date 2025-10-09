@@ -27,7 +27,11 @@ RUN npm run build
 EXPOSE $PORT
 
 # 7. Entry point: copy secret if it exists, then start the app
+
 CMD ["sh", "-c", "\
+    echo '--> Updating yt-dlp...' && \
+    pip3 install --upgrade yt-dlp && \
+    echo '--> Starting application...' && \
     cp /etc/secrets/cookies.txt ./cookies.txt 2>/dev/null || true && \
     node dist/index.js \
 "]
